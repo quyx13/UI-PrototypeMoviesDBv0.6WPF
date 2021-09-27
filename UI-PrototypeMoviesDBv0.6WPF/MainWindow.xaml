@@ -5,8 +5,144 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_PrototypeMoviesDBv0._6WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="UI-PrototypeMoviesDBv0.6WPF" Height="540" Width="720" MinWidth="720" MinHeight="540" Icon="/clapperboard.png" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" WindowStyle="ThreeDBorderWindow">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open"/>
+                <Separator/>
+                <MenuItem x:Name="menuExit" Header="_Exit" Click="menuExit_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/res/exit24.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_About">
+                <MenuItem x:Name="menuInfo" Header="_Info" Click="menuInfo_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/res/info24.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnStart" Grid.Column="0" Margin="3,3,0,0" Click="btnStart_Click">
+                <Grid Width="70">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="btnStartImg" Source="/res/play24.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock x:Name="btnStartTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" FontWeight="Bold">Start</TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btnPause" Grid.Column="1" Margin="3,3,0,0" IsEnabled="False" Click="btnPause_Click">
+                <Grid Width="72">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="btnPauseImg" Source="/res/pause24gray.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock x:Name="btnPauseTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Pause</TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btnStop" Grid.Column="2" Margin="3,3,0,0" IsEnabled="False" Click="btnStop_Click">
+                <Grid Width="64">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="btnStopImg" Source="/res/stop24gray.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock x:Name="btnStopTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Stop</TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btnSettings" Grid.Column="3" Margin="3,3,0,0" Click="btnSettings_Click">
+                <Grid Width="85">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="btnSettingsImg" Source="/res/settings24.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock x:Name="btnSettingsTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Settings</TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btnTest" Grid.Column="4" Margin="3,3,0,0" Content="Test" Width="25" Click="btnTest_Click">
+            </Button>
+            <ComboBox x:Name="comboBox" Grid.Column="6" Margin="3,3,3,3" Height="23"/>
+        </Grid>
+        <GroupBox Grid.Row="2" Margin="3,-4,3,3">
+            <GroupBox.Header>
+                <Label>Output</Label>
+            </GroupBox.Header>
+            <TextBox x:Name="textBox" VerticalScrollBarVisibility="Auto" IsReadOnly="True" IsUndoEnabled="False" HorizontalScrollBarVisibility="Auto"/>
+        </GroupBox>
+        <StatusBar Grid.Row="3">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="223"/>
+                            <ColumnDefinition Width="121"/>
+                            <ColumnDefinition Width="159"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <Border BorderBrush="#FFBAB7B7" BorderThickness="0,0,1,1" Margin="1,1,0,0" Height="20">
+                    <Border BorderBrush="Black" BorderThickness="1,1,0,0">
+                        <TextBlock x:Name="statusTextTime" Text="XXh:XXm:XXs (remaining: XXh:XXm:XXs)" TextAlignment="Left" Margin="2,0,2,0" Width="210" HorizontalAlignment="Stretch"/>
+                    </Border>
+                </Border>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <Border BorderBrush="#FFBAB7B7" BorderThickness="0,0,1,1" Margin="1,1,0,0" Height="20">
+                    <Border BorderBrush="Black" BorderThickness="1,1,0,0">
+                        <TextBlock x:Name="statusTextTask" Text="XXX.XXX of XXX.XXX" TextAlignment="Right" Margin="2,0,2,0" Width="108"/>
+                    </Border>
+                </Border>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <Border BorderBrush="#FFBAB7B7" BorderThickness="0,0,1,1" Margin="1,1,0,0" Height="20">
+                    <Border BorderBrush="Black" BorderThickness="1,1,0,0">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ProgressBar x:Name="statusProgressBar" Grid.Column="0" Value="50" Width="100" Height="16" Margin="1,1,1,1"/>
+                            <TextBlock x:Name="statusTextPercentage" Grid.Column="1" Text="100,00%" TextAlignment="Right" Margin="3,0,0,0" Width="45"/>
+                        </Grid>
+                    </Border>
+                </Border>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <Border BorderBrush="#FFBAB7B7" BorderThickness="0,0,1,1" Margin="1,1,0,0" Height="20">
+                    <Border BorderBrush="Black" BorderThickness="1,1,0,0">
+                        <TextBlock x:Name="statusTextInfo" Text="statusLabelInfo" Margin="2,0,2,0" Width="185"/>
+                    </Border>
+                </Border>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
