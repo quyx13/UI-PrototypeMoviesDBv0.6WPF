@@ -16,7 +16,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
-        private Dictionary<string, List<object>> log = new Dictionary<string, List<object>>();
+        private Dictionary<string, List<int>> log = new Dictionary<string, List<int>>();
         private List<int> _updates = new List<int>();
 
         public Controller(View.MainWindow mainWindow)
@@ -39,8 +39,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _worker.CounterChanged += OnCounterChanged;
             _worker.WorkerDone += OnWorkerDone;
+
+            _worker.WorkerDone += OnAllCounter;
+            _worker.WorkerDone += OnEvenCounter;
+            _worker.WorkerDone += OnUnevenCounter;
+            _worker.WorkerDone += OnModulo13Counter;
+            _worker.WorkerDone += OnModulo100Counter;
+            _worker.WorkerDone += OnPrimeCounter;
         }
 
+        #region React on commands
         public void MenuExit_Click()
         {
             Application.Current.Shutdown();
@@ -91,7 +99,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     break;
             }
         }
+        #endregion
 
+        #region React on events
         public void OnCounterChanged(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
@@ -104,6 +114,49 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _mainWindow.SetState(WorkerState.done);
             Trace.WriteLine("...done");
         }
+
+        public void OnAllCounter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("All"))
+                log.Add("All", new List<int>());
+            log["All"].Add(_worker.GetCounter());
+        }
+
+        public void OnEvenCounter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("Even"))
+                log.Add("Even", new List<int>());
+            log["Even"].Add(_worker.GetCounter());
+        }
+
+        public void OnUnevenCounter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("Uneven"))
+                log.Add("Uneven", new List<int>());
+            log["Uneven"].Add(_worker.GetCounter());
+        }
+
+        public void OnModulo13Counter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("Modulo13"))
+                log.Add("Modulo13", new List<int>());
+            log["Modulo13"].Add(_worker.GetCounter());
+        }
+
+        public void OnModulo100Counter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("Modulo100"))
+                log.Add("Modulo100", new List<int>());
+            log["Modulo100"].Add(_worker.GetCounter());
+        }
+
+        public void OnPrimeCounter(object sender, EventArgs e)
+        {
+            if (!log.ContainsKey("Prime"))
+                log.Add("Prime", new List<int>());
+            log["Prime"].Add(_worker.GetCounter());
+        }
+        #endregion
 
         private void timer_Tick(object sender, EventArgs e)
         {
