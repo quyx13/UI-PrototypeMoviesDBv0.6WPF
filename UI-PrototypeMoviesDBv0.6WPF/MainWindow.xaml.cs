@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using UI_PrototypeMoviesDBv0._6WPF.Model;
 
 namespace UI_PrototypeMoviesDBv0._6WPF
 {
@@ -36,7 +38,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            
+            Task work = Task.Factory.StartNew(() => Worker.DoWork(5200));
         }
 
         private void btnPause_Click(object sender, RoutedEventArgs e)
