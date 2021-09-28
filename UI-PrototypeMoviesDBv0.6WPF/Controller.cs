@@ -116,7 +116,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             Trace.WriteLine("...done");
 
             foreach (var key in log.Keys)
-                File.WriteAllLines(Environment.CurrentDirectory + "\\_" + key + ".log", log[key]);
+                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
         }
 
         public void OnAllCounter(object sender, EventArgs e)
