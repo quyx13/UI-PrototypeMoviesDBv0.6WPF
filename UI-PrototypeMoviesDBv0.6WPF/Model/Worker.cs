@@ -42,6 +42,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public void DoWork()
         {
+            int test = 0;
+
             for (; _counter < _total;)
             {
                 if (_workerState == WorkerState.running)
@@ -57,11 +59,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 }
                 else
                 {
-                    return;
+                    System.Diagnostics.Trace.WriteLine($"else {test} DoWork");
+                    test++;
+                    Thread.Sleep(1000);
                 }
             }
 
-            System.Diagnostics.Trace.WriteLine("leave DoWork");
             WorkerDone?.Invoke(this, EventArgs.Empty);
         }
     }
