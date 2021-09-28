@@ -8,7 +8,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     public class Controller
     {
         private View.MainWindow _mainWindow;
-        private Worker _worker = new Worker();
+        private Worker _worker;
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -31,7 +31,15 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            Task work = Task.Factory.StartNew(() => _worker.DoWork(5200));
+            _worker = new Worker();
+            _worker.CounterChanged += OnCounterChanged;
+            _worker.SetTotal(5200);
+            Task work = Task.Factory.StartNew(() => _worker.DoWork());
+        }
+
+        public void OnCounterChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
