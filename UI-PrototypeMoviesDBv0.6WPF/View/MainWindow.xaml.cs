@@ -10,7 +10,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
     {
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
-        private Stopwatch _timer = new Stopwatch();
 
         public MainWindow()
         {
@@ -22,11 +21,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         public DispatcherTimer GetDispatcherTimer()
         {
             return _dispatcherTimer;
-        }
-
-        public Stopwatch GetTimer()
-        {
-            return _timer;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,7 +72,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                this.Title = text;
+                Title = text;
             }), DispatcherPriority.Background);
         }
 
@@ -238,22 +232,22 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         public void SetStateReady()
         {
-            _timer.Reset();
+            
         }
 
         public void SetStateRun()
         {
-            _timer.Start();
+            
         }
 
         public void SetStateStop()
         {
-            _timer.Stop();
+            
         }
 
         public void SetStateDone()
         {
-            _timer.Stop();
+            
         }
     }
 }

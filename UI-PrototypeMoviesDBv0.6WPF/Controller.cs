@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -9,6 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     class Controller
     {
         private View.MainWindow _mainWindow;
+        private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
         private WorkerState _workerState;
 
@@ -41,6 +43,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (_workerState == WorkerState.ready)
             {
                 _workerState = WorkerState.running;
+                _timer.Start();
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
         }
@@ -53,6 +56,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkerDone(object sender, EventArgs e)
         {
             _workerState = WorkerState.done;
+            _timer.Stop();
             _mainWindow.SetStateDone();
             System.Diagnostics.Trace.WriteLine("...done");
         }
@@ -62,8 +66,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             //_mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{DateTime.Now.ToString("HH:mm:ss")}]");
             _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{_updates.Count}]");
 
-            _mainWindow.UpdateStatusTextElapsed($"{_mainWindow.GetTimer().Elapsed.Hours:D2}h:" +
-                $"{_mainWindow.GetTimer().Elapsed.Minutes:D2}m:{_mainWindow.GetTimer().Elapsed.Seconds:D2}s");
+            _mainWindow.UpdateStatusTextElapsed($"{_timer.Elapsed.Hours:D2}h:{_timer.Elapsed.Minutes:D2}m:{_timer.Elapsed.Seconds:D2}s");
         }
     }
 }
