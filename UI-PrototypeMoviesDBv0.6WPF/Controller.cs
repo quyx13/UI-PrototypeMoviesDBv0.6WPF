@@ -118,7 +118,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF\t{DateTime.Now.ToString("HH:mm:ss")}\t(Updates: {_updates.Count})");
+            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF   [{DateTime.Now.ToString("HH:mm:ss")}]   [Updates:{_updates.Count}]");
             _mainWindow.UpdateStatusTextElapsed($"{_timer.Elapsed.Hours:D2}h:{_timer.Elapsed.Minutes:D2}m:{_timer.Elapsed.Seconds:D2}s");
         }
     }
