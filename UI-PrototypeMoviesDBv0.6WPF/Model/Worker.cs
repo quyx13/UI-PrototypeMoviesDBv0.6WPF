@@ -14,6 +14,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public void DoWork()
         {
+            System.Diagnostics.Trace.WriteLine("started...");
+
             for (int i = 0; i < _total;)
             {
                 #region work
