@@ -37,12 +37,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void OnCounterChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()}");
+            
         }
 
         public void OnPrimeFound(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()} is prime!");
+            System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()}");
         }
 
         private void timer_Tick(object sender, EventArgs e)
