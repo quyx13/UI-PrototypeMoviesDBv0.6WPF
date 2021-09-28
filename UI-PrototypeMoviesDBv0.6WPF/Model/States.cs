@@ -3,8 +3,8 @@
     public enum WorkerState
     {
         ready,
-        running,
-        stopped,
+        run,
+        stop,
         done
     }
 }
