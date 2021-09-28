@@ -12,6 +12,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public event EventHandler CounterChanged;
 
+        #region Getter and setter
         public int GetCounter()
         {
             return _counter;
@@ -36,6 +37,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         {
             _workerState = workerState;
         }
+        #endregion
 
         public void DoWork()
         {
