@@ -252,6 +252,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
                     UpdateBtnSettings(false);
                     UpdateBtnSettingsImg(@"/res/settings24gray.png");
+
+                    UpdateStatusTextInfo("Running");
                     break;
                 case WorkerState.stopped:
                     UpdateBtnStart(true);
@@ -264,6 +266,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
                     UpdateBtnSettings(false);
                     UpdateBtnSettingsImg(@"/res/settings24gray.png");
+
+                    UpdateStatusTextInfo("Stopped");
                     break;
                 case WorkerState.done:
                     UpdateBtnStart(false);
@@ -276,6 +280,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
                     UpdateBtnSettings(true);
                     UpdateBtnSettingsImg(@"/res/settings24.png");
+
+                    UpdateStatusTextInfo("Done");
                     break;
             }
         }

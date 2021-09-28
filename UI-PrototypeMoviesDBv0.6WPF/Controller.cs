@@ -39,24 +39,37 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            if (_worker.GetState() == WorkerState.ready)
+            switch (_worker.GetState())
             {
-                _timer.Start();
-                _worker.SetState(WorkerState.running);
-                _mainWindow.SetState(WorkerState.running);
-                Trace.WriteLine("started...");
-                Task work = Task.Factory.StartNew(() => _worker.DoWork());
+                case WorkerState.ready:
+                    _timer.Start();
+                    _worker.SetState(WorkerState.running);
+                    _mainWindow.SetState(WorkerState.running);
+                    Trace.WriteLine("started...");
+                    Task work = Task.Factory.StartNew(() => _worker.DoWork());
+                    break;
+                case WorkerState.stopped:
+                    _timer.Start();
+                    _worker.SetState(WorkerState.running);
+                    _mainWindow.SetState(WorkerState.running);
+                    break;
             }
         }
 
         public void BtnStop_Click()
         {
-            if (_worker.GetState() == WorkerState.running)
+            switch (_worker.GetState())
             {
-                _timer.Stop();
-                _worker.SetState(WorkerState.stopped);
-                _mainWindow.SetState(WorkerState.stopped);
-                Trace.WriteLine("...stopped...");
+                case WorkerState.running:
+                    _timer.Stop();
+                    _worker.SetState(WorkerState.stopped);
+                    _mainWindow.SetState(WorkerState.stopped);
+                    Trace.WriteLine("...stopped...");
+                    break;
+                case WorkerState.stopped:
+                    _worker.SetState(WorkerState.done);
+                    _mainWindow.SetState(WorkerState.done);
+                    break;
             }
         }
 
