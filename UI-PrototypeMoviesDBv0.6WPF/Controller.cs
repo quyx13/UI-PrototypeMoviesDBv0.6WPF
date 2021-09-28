@@ -46,7 +46,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void timer_Tick(object sender, EventArgs e)
         {
-
+            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{DateTime.Now.ToString("HH:mm:ss")}]");
         }
     }
 }
