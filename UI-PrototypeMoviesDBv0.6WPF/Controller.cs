@@ -125,42 +125,60 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnAllCounter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("All"))
+            {
                 log.Add("All", new List<string>());
+            }
+
             log["All"].Add(_worker.GetCounter().ToString());
         }
 
         public void OnEvenCounter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("Even"))
+            {
                 log.Add("Even", new List<string>());
+            }
+
             log["Even"].Add(_worker.GetCounter().ToString());
         }
 
         public void OnUnevenCounter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("Uneven"))
+            {
                 log.Add("Uneven", new List<string>());
+            }
+
             log["Uneven"].Add(_worker.GetCounter().ToString());
         }
 
         public void OnModulo13Counter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("Modulo13"))
+            {
                 log.Add("Modulo13", new List<string>());
+            }
+
             log["Modulo13"].Add(_worker.GetCounter().ToString());
         }
 
         public void OnModulo100Counter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("Modulo100"))
+            {
                 log.Add("Modulo100", new List<string>());
+            }
+
             log["Modulo100"].Add(_worker.GetCounter().ToString());
         }
 
         public void OnPrimeCounter(object sender, EventArgs e)
         {
             if (!log.ContainsKey("Prime"))
+            {
                 log.Add("Prime", new List<string>());
+            }
+
             log["Prime"].Add(_worker.GetCounter().ToString());
         }
         #endregion
