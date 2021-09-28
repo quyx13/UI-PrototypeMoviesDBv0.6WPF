@@ -39,15 +39,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnStart" Grid.Column="0" Margin="3,3,0,0" Click="btnStart_Click">
-                <Grid Width="70">
+            <Button x:Name="btnStart" Grid.Column="0" Margin="3,3,0,0" Click="btnStart_Click" Width="88" HorizontalAlignment="Stretch">
+                <Grid HorizontalAlignment="Left">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="btnStartImg" Source="/res/play24.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
-                    <TextBlock x:Name="btnStartTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" FontWeight="Bold">Start</TextBlock>
+                    <Image x:Name="btnStartImg" Source="/res/play24.png" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock x:Name="btnStartTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,3,0" FontWeight="Bold">Start</TextBlock>
                 </Grid>
             </Button>
             <Button x:Name="btnStop" Grid.Column="1" Margin="3,3,0,0" IsEnabled="False" Click="btnStop_Click">
