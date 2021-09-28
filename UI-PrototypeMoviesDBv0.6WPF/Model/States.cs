@@ -5,6 +5,7 @@
         ready,
         running,
         stopped,
-        done
+        done,
+        abort
     }
 }
