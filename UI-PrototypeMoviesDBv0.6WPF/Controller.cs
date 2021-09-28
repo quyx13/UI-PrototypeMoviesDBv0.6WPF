@@ -72,6 +72,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Reset();
                     _worker.SetState(WorkerState.ready);
                     _mainWindow.SetState(WorkerState.ready);
+                    _updates.Clear();
                     Trace.WriteLine("reset");
                     break;
             }
