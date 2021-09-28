@@ -8,7 +8,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         private int _counter = 0;
         private int _total = 0;
         private int _wait = 0;
-        private WorkerState _workerState = WorkerState.ready;
 
         public event EventHandler CounterChanged;
         public event EventHandler WorkerDone;
@@ -28,16 +27,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         {
             this._wait = wait;
         }
-
-        public WorkerState GetState()
-        {
-            return _workerState;
-        }
-
-        public void SetState(WorkerState workerState)
-        {
-            _workerState = workerState;
-        }
         #endregion
 
         public void DoWork()
@@ -54,7 +43,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 #endregion
             }
 
-            _workerState = WorkerState.done;
             WorkerDone?.Invoke(this, EventArgs.Empty);
         }
     }

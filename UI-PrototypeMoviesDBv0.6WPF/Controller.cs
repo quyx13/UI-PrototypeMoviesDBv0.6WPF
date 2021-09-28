@@ -10,6 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     {
         private View.MainWindow _mainWindow;
         private Worker _worker;
+        private WorkerState _workerState;
 
         private List<int> _updates = new List<int>();
 
@@ -37,7 +38,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            if (_worker.GetState() == WorkerState.ready)
+            if (_workerState == WorkerState.ready)
             {
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
@@ -50,6 +51,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void OnWorkerDone(object sender, EventArgs e)
         {
+            _workerState = WorkerState.done;
             System.Diagnostics.Trace.WriteLine("...done");
         }
 
