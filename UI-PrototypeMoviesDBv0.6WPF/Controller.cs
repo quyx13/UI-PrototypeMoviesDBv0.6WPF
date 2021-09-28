@@ -92,15 +92,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnSettings_Click()
         {
-            switch (_mainWindow.btnStartTxt.Text)
-            {
-                case "Start":
-                    _mainWindow.UpdateBtnStartTxt("Resume");
-                    break;
-                case "Resume":
-                    _mainWindow.UpdateBtnStartTxt("Start");
-                    break;
-            }
+            
         }
 
         public void OnCounterChanged(object sender, EventArgs e)
