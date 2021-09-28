@@ -34,7 +34,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             {
                 #region work
                 _counter++;
-                Thread.Sleep(1);
+                Thread.Sleep(_wait);
 
                 CounterChanged?.Invoke(this, EventArgs.Empty);
                 #endregion
