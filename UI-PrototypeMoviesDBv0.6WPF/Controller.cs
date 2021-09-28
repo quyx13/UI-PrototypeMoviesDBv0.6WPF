@@ -17,6 +17,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
             mainWindow.GetDispatcherTimer().Start();
+
+            _worker = new Worker();
+            _worker.SetTotal(5200);
+            _worker.SetWait(0);
+            _worker.CounterChanged += OnCounterChanged;
         }
 
         public void MenuExit_Click()
@@ -26,12 +31,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            _worker = new Worker();
-            _worker.CounterChanged += OnCounterChanged;
-            _worker.PrimeFound += OnPrimeFound;
-
-            _worker.SetTotal(5200);
-            _worker.SetWait(0);
             Task work = Task.Factory.StartNew(() => _worker.DoWork());
         }
 

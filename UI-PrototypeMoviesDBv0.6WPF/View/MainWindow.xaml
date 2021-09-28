@@ -36,8 +36,6 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
@@ -52,18 +50,7 @@
                     <TextBlock x:Name="btnStartTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" FontWeight="Bold">Start</TextBlock>
                 </Grid>
             </Button>
-            <Button x:Name="btnPause" Grid.Column="1" Margin="3,3,0,0" IsEnabled="False" Click="btnPause_Click">
-                <Grid Width="72">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Image x:Name="btnPauseImg" Source="/res/pause24gray.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
-                    <TextBlock x:Name="btnPauseTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Pause</TextBlock>
-                </Grid>
-            </Button>
-            <Button x:Name="btnStop" Grid.Column="2" Margin="3,3,0,0" IsEnabled="False" Click="btnStop_Click">
+            <Button x:Name="btnStop" Grid.Column="1" Margin="3,3,0,0" IsEnabled="False" Click="btnStop_Click">
                 <Grid Width="64">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -74,7 +61,7 @@
                     <TextBlock x:Name="btnStopTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Stop</TextBlock>
                 </Grid>
             </Button>
-            <Button x:Name="btnSettings" Grid.Column="3" Margin="3,3,0,0" Click="btnSettings_Click">
+            <Button x:Name="btnSettings" Grid.Column="2" Margin="3,3,0,0" Click="btnSettings_Click">
                 <Grid Width="85">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -85,9 +72,7 @@
                     <TextBlock x:Name="btnSettingsTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Settings</TextBlock>
                 </Grid>
             </Button>
-            <Button x:Name="btnTest" Grid.Column="4" Margin="3,3,0,0" Content="Test" Width="25" Click="btnTest_Click">
-            </Button>
-            <ComboBox x:Name="comboBox" Grid.Column="6" Margin="3,3,3,3" Height="23"/>
+            <ComboBox x:Name="comboBox" Grid.Column="4" Margin="3,3,3,3" Height="23"/>
         </Grid>
         <GroupBox Grid.Row="2" Margin="3,-4,3,3">
             <GroupBox.Header>

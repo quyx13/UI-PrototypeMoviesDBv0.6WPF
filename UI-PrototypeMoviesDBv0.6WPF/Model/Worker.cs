@@ -10,7 +10,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         private int _wait = 0;
 
         public event EventHandler CounterChanged;
-        public event EventHandler PrimeFound;
 
         public void DoWork()
         {
@@ -23,9 +22,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 Thread.Sleep(1);
 
                 CounterChanged?.Invoke(this, EventArgs.Empty);
-
-                if (IsPrime())
-                    PrimeFound?.Invoke(this, EventArgs.Empty);
                 #endregion
             }
 
@@ -45,21 +41,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public void SetWait(int wait)
         {
             this._wait = wait;
-        }
-
-        private bool IsPrime()
-        {
-            if (_counter <= 1) return false;
-            if (_counter == 2) return true;
-            if (_counter % 2 == 0) return false;
-
-            var boundary = (int)Math.Floor(Math.Sqrt(_counter));
-
-            for (int i = 3; i <= boundary; i += 2)
-                if (_counter % i == 0)
-                    return false;
-
-            return true;
         }
     }
 }
