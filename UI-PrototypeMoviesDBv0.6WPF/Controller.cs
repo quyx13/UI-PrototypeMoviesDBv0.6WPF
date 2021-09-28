@@ -19,11 +19,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Start();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         public void MenuExit_Click()
         {
             Application.Current.Shutdown();
@@ -36,6 +31,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.PrimeFound += OnPrimeFound;
 
             _worker.SetTotal(5200);
+            _worker.SetWait(0);
             Task work = Task.Factory.StartNew(() => _worker.DoWork());
         }
 
@@ -47,6 +43,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnPrimeFound(object sender, EventArgs e)
         {
             System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()} is prime!");
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

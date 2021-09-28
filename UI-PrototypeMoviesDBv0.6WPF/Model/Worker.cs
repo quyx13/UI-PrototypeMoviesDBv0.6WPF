@@ -7,6 +7,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
     {
         private int _counter = 0;
         private int _total = 0;
+        private int _wait = 0;
 
         public event EventHandler CounterChanged;
         public event EventHandler PrimeFound;
@@ -29,14 +30,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             System.Diagnostics.Trace.WriteLine("...done");
         }
 
+        public int GetCounter()
+        {
+            return _counter;
+        }
+
         public void SetTotal(int total)
         {
             this._total = total;
         }
 
-        public int GetCounter()
+        public void SetWait(int wait)
         {
-            return _counter;
+            this._wait = wait;
         }
 
         private bool IsPrime()
