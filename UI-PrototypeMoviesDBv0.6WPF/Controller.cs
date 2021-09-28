@@ -25,6 +25,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker = new Worker();
             _worker.SetTotal(5200);
             _worker.SetWait(1);
+
             _worker.CounterChanged += OnCounterChanged;
         }
 

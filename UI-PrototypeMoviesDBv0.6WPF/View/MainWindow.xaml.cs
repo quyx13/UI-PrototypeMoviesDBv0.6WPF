@@ -178,13 +178,21 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             }), DispatcherPriority.Background);
         }
 
-        //public void UpdateStatusTextTime(string text)
-        //{
-        //    Dispatcher.Invoke(new Action(() =>
-        //    {
-        //        statusTextTime.Text = text;
-        //    }), DispatcherPriority.Background);
-        //}
+        public void UpdateStatusTextElapsed(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                statusTextElapsed.Text = text;
+            }), DispatcherPriority.Background);
+        }
+
+        public void UpdateStatusTextRemaining(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                statusTextRemaining.Text = text;
+            }), DispatcherPriority.Background);
+        }
 
         public void UpdateStatusTextTask(string text)
         {
