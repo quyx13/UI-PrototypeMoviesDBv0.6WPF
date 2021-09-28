@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -9,6 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
     {
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
+        private Stopwatch _timer = new Stopwatch();
 
         public MainWindow()
         {
@@ -20,6 +22,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         public DispatcherTimer GetDispatcherTimer()
         {
             return _dispatcherTimer;
+        }
+
+        public Stopwatch GetTimer()
+        {
+            return _timer;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -171,13 +178,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             }), DispatcherPriority.Background);
         }
 
-        public void UpdateStatusTextTime(string text)
-        {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                statusTextTime.Text = text;
-            }), DispatcherPriority.Background);
-        }
+        //public void UpdateStatusTextTime(string text)
+        //{
+        //    Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        statusTextTime.Text = text;
+        //    }), DispatcherPriority.Background);
+        //}
 
         public void UpdateStatusTextTask(string text)
         {
@@ -219,6 +226,26 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             {
                 statusTextInfo.Text = text;
             }), DispatcherPriority.Background);
+        }
+
+        public void SetStateReady()
+        {
+            _timer.Reset();
+        }
+
+        public void SetStateRun()
+        {
+
+        }
+
+        public void SetStateStop()
+        {
+
+        }
+
+        public void SetStateDone()
+        {
+
         }
     }
 }

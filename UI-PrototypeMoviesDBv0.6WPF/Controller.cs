@@ -15,7 +15,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public Controller(View.MainWindow mainWindow)
         {
-            this._mainWindow = mainWindow;
+            _mainWindow = mainWindow;
+            _mainWindow.SetStateReady();
 
             mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
@@ -23,7 +24,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _worker = new Worker();
             _worker.SetTotal(5200);
-            _worker.SetWait(0);
+            _worker.SetWait(1);
             _worker.CounterChanged += OnCounterChanged;
         }
 
