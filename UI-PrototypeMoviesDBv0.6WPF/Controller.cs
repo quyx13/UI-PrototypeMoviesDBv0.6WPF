@@ -16,6 +16,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
+        private Dictionary<string, List<object>> log = new Dictionary<string, List<object>>();
         private List<int> _updates = new List<int>();
 
         public Controller(View.MainWindow mainWindow)
