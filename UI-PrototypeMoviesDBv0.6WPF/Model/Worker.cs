@@ -16,10 +16,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         {
             System.Diagnostics.Trace.WriteLine("started...");
 
-            for (int i = 0; i < _total;)
+            for (; _counter < _total;)
             {
                 #region work
-                i++;
+                _counter++;
                 Thread.Sleep(1);
 
                 CounterChanged?.Invoke(this, EventArgs.Empty);
