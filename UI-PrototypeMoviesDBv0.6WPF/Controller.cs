@@ -10,7 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     class Controller
     {
-        private static readonly int setupTotal = 5200;
+        private static readonly int setupTotal = 100000;
         private static readonly int setupWait = 1;
 
         private View.MainWindow _mainWindow;
@@ -118,7 +118,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             foreach (string key in log.Keys)
             {
                 Trace.WriteLine($@"{key}: {log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
-                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
+                //File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
             }
         }
 
@@ -158,7 +158,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (!log.ContainsKey(s))
             {
                 log.Add(s, new List<string>());
-                _mainWindow.comboBox.Items.Add(s);
+                //_mainWindow.comboBox.Items.Add(s);
             }
 
             log[s].Add(_worker.GetCounter().ToString());
