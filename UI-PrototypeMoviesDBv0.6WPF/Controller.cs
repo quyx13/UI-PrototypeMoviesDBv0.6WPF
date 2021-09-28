@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -9,6 +10,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     {
         private View.MainWindow _mainWindow;
         private Worker _worker;
+
+        private List<int> _updates = new List<int>();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -36,7 +39,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void OnCounterChanged(object sender, EventArgs e)
         {
-            
+            _updates.Add(_worker.GetCounter());
         }
 
         public void OnPrimeFound(object sender, EventArgs e)
@@ -46,7 +49,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{DateTime.Now.ToString("HH:mm:ss")}]");
+            //_mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{DateTime.Now.ToString("HH:mm:ss")}]");
+            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{_updates.Count}]");
         }
     }
 }
