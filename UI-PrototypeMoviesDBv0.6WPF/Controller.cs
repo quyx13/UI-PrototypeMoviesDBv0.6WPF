@@ -110,7 +110,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
             try
             {
-                timeRemaing = TimeSpan.FromMilliseconds((setupTotal - _updates[_updates.Count - 1]) * (_timer.Elapsed.TotalMilliseconds / _updates[_updates.Count - 1]));
+                if (_timer.Elapsed.TotalMilliseconds > 0 && _updates[_updates.Count - 1] > 0)
+                {
+                    timeRemaing = TimeSpan.FromMilliseconds((setupTotal - _updates[_updates.Count - 1]) * (_timer.Elapsed.TotalMilliseconds / _updates[_updates.Count - 1]));
+                }
             }
             catch (Exception ex)
             {
