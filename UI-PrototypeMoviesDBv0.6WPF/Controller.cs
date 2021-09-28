@@ -44,6 +44,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             {
                 _workerState = WorkerState.running;
                 _timer.Start();
+                _mainWindow.SetStateRunning();
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
         }
