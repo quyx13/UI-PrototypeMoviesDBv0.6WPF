@@ -54,6 +54,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
+                    _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
                     Trace.WriteLine("started...");
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
@@ -84,6 +85,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Reset();
                     _worker.SetState(WorkerState.ready);
                     _mainWindow.SetState(WorkerState.ready);
+                    _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _updates.Clear();
                     Trace.WriteLine("reset");
                     break;
