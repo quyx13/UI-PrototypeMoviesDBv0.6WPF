@@ -40,6 +40,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             if (_workerState == WorkerState.ready)
             {
+                _workerState = WorkerState.running;
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
         }
@@ -52,6 +53,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkerDone(object sender, EventArgs e)
         {
             _workerState = WorkerState.done;
+            _mainWindow.SetStateDone();
             System.Diagnostics.Trace.WriteLine("...done");
         }
 
