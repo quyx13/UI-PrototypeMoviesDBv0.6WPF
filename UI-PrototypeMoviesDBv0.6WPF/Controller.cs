@@ -42,6 +42,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
+            Trace.WriteLine($"workerState:{_worker.GetState()}");
             switch (_worker.GetState())
             {
                 case WorkerState.ready:
