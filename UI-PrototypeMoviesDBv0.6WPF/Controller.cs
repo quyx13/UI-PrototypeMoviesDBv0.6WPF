@@ -36,7 +36,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            Task work = Task.Factory.StartNew(() => _worker.DoWork());
+            if (_worker.GetState() == WorkerState.ready)
+            {
+                Task work = Task.Factory.StartNew(() => _worker.DoWork());
+            }
         }
 
         public void OnCounterChanged(object sender, EventArgs e)
