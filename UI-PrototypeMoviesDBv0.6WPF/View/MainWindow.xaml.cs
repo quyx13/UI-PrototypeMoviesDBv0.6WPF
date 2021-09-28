@@ -243,17 +243,17 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         public void SetStateRun()
         {
-
+            _timer.Start();
         }
 
         public void SetStateStop()
         {
-
+            _timer.Stop();
         }
 
         public void SetStateDone()
         {
-
+            _timer.Stop();
         }
     }
 }

@@ -53,6 +53,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             //_mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{DateTime.Now.ToString("HH:mm:ss")}]");
             _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF [{_updates.Count}]");
+
+            _mainWindow.UpdateStatusTextElapsed($"{_mainWindow.GetTimer().Elapsed.Hours:D2}h:" +
+                $"{_mainWindow.GetTimer().Elapsed.Minutes:D2}m:{_mainWindow.GetTimer().Elapsed.Seconds:D2}s");
         }
     }
 }
