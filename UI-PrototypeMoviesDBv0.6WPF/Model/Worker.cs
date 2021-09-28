@@ -13,6 +13,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 Thread.Sleep(1);
                 #endregion
             }
+
+            System.Diagnostics.Trace.WriteLine("...done");
         }
     }
 }
