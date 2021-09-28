@@ -53,6 +53,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 #endregion
             }
 
+            _workerState = WorkerState.done;
             System.Diagnostics.Trace.WriteLine("...done");
         }
     }
