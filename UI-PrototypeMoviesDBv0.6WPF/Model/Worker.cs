@@ -11,6 +11,21 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public event EventHandler CounterChanged;
 
+        public int GetCounter()
+        {
+            return _counter;
+        }
+
+        public void SetTotal(int total)
+        {
+            this._total = total;
+        }
+
+        public void SetWait(int wait)
+        {
+            this._wait = wait;
+        }
+
         public void DoWork()
         {
             System.Diagnostics.Trace.WriteLine("started...");
@@ -26,21 +41,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             }
 
             System.Diagnostics.Trace.WriteLine("...done");
-        }
-
-        public int GetCounter()
-        {
-            return _counter;
-        }
-
-        public void SetTotal(int total)
-        {
-            this._total = total;
-        }
-
-        public void SetWait(int wait)
-        {
-            this._wait = wait;
         }
     }
 }

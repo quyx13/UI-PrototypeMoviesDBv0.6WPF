@@ -5,7 +5,7 @@ using UI_PrototypeMoviesDBv0._6WPF.Model;
 
 namespace UI_PrototypeMoviesDBv0._6WPF
 {
-    public class Controller
+    class Controller
     {
         private View.MainWindow _mainWindow;
         private Worker _worker;
