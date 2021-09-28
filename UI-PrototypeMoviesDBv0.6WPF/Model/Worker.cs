@@ -55,6 +55,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 }
                 else
                 {
+                    System.Diagnostics.Trace.WriteLine("DoWork else");
+                    Thread.Sleep(500);
                     return;
                 }
             }
