@@ -18,7 +18,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public Controller(View.MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-            _mainWindow.SetStateReady();
+            _mainWindow.SetState(WorkerState.ready);
 
             mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
@@ -43,7 +43,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             {
                 _timer.Start();
                 _worker.SetState(WorkerState.running);
-                _mainWindow.SetStateRunning();
+                _mainWindow.SetState(WorkerState.running);
                 Trace.WriteLine("started...");
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
@@ -55,7 +55,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             {
                 _timer.Stop();
                 _worker.SetState(WorkerState.stopped);
-                _mainWindow.SetStateDone();
+                _mainWindow.SetState(WorkerState.done);
                 Trace.WriteLine("...stopped...");
             }
         }
@@ -82,7 +82,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             _timer.Stop();
             _worker.SetState(WorkerState.done);
-            _mainWindow.SetStateDone();
+            _mainWindow.SetState(WorkerState.done);
             Trace.WriteLine("...done");
         }
 

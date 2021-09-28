@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using UI_PrototypeMoviesDBv0._6WPF.Model;
 
 namespace UI_PrototypeMoviesDBv0._6WPF.View
 {
@@ -220,38 +221,33 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             }), DispatcherPriority.Background);
         }
 
-        public void SetStateReady()
+        public void SetState(WorkerState workerState)
         {
-            UpdateBtnStart(true);
-            UpdateBtnStartImg(@"/res/play24.png");
-            UpdateBtnStartTxt("Start");
+            switch (workerState) {
+                case WorkerState.ready:
+                    UpdateBtnStart(true);
+                    UpdateBtnStartImg(@"/res/play24.png");
+                    UpdateBtnStartTxt("Start");
 
-            UpdateBtnStop(false);
-            UpdateBtnStopImg(@"/res/stop24gray.png");
-            UpdateBtnStopTxt("Stop");
+                    UpdateBtnStop(false);
+                    UpdateBtnStopImg(@"/res/stop24gray.png");
+                    UpdateBtnStopTxt("Stop");
 
-            UpdateBtnSettings(true);
-            UpdateBtnSettingsImg(@"/res/settings24.png");
+                    UpdateBtnSettings(true);
+                    UpdateBtnSettingsImg(@"/res/settings24.png");
 
-            UpdateStatusTextTask("0 of 0");
-            SetupStatusProgressBar(0, 1, 0);
-            UpdateStatusTextPercentage("0%");
-            UpdateStatusTextInfo("Ready");
-        }
-
-        public void SetStateRunning()
-        {
-            
-        }
-
-        public void SetStateStopped()
-        {
-            
-        }
-
-        public void SetStateDone()
-        {
-            
+                    UpdateStatusTextTask("0 of 0");
+                    SetupStatusProgressBar(0, 1, 0);
+                    UpdateStatusTextPercentage("0%");
+                    UpdateStatusTextInfo("Ready");
+                    break;
+                case WorkerState.running:
+                    break;
+                case WorkerState.stopped:
+                    break;
+                case WorkerState.done:
+                    break;
+            }
         }
     }
 }
