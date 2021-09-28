@@ -7,9 +7,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     public class Controller
     {
-        private MainWindow mainWindow;
+        private View.MainWindow mainWindow;
 
-        public Controller(MainWindow mainWindow)
+        public Controller(View.MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
 

@@ -1,11 +1,11 @@
-﻿<Window x:Class="UI_PrototypeMoviesDBv0._6WPF.MainWindow"
+﻿<Window x:Class="UI_PrototypeMoviesDBv0._6WPF.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_PrototypeMoviesDBv0._6WPF"
         mc:Ignorable="d"
-        Title="UI-PrototypeMoviesDBv0.6WPF" Height="540" Width="720" MinWidth="720" MinHeight="540" Icon="res/clapperboard.png" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" WindowStyle="ThreeDBorderWindow">
+        Title="UI-PrototypeMoviesDBv0.6WPF" Height="540" Width="720" MinWidth="720" MinHeight="540" Icon="/res/clapperboard.png" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" WindowStyle="ThreeDBorderWindow">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

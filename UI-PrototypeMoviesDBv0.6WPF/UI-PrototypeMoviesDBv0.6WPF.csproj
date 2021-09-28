@@ -8,31 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="View\res\clapperboard.png" />
-    <None Remove="View\res\exit24.png" />
-    <None Remove="View\res\info24.png" />
-    <None Remove="View\res\pause24.png" />
-    <None Remove="View\res\pause24gray.png" />
-    <None Remove="View\res\play24.png" />
-    <None Remove="View\res\play24gray.png" />
-    <None Remove="View\res\settings24.png" />
-    <None Remove="View\res\settings24gray.png" />
-    <None Remove="View\res\stop24.png" />
-    <None Remove="View\res\stop24gray.png" />
+    <None Remove="res\clapperboard.png" />
+    <None Remove="res\exit24.png" />
+    <None Remove="res\info24.png" />
+    <None Remove="res\pause24.png" />
+    <None Remove="res\pause24gray.png" />
+    <None Remove="res\play24.png" />
+    <None Remove="res\play24gray.png" />
+    <None Remove="res\settings24.png" />
+    <None Remove="res\settings24gray.png" />
+    <None Remove="res\stop24.png" />
+    <None Remove="res\stop24gray.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\res\clapperboard.png" />
-    <Resource Include="View\res\exit24.png" />
-    <Resource Include="View\res\info24.png" />
-    <Resource Include="View\res\pause24.png" />
-    <Resource Include="View\res\pause24gray.png" />
-    <Resource Include="View\res\play24.png" />
-    <Resource Include="View\res\play24gray.png" />
-    <Resource Include="View\res\settings24.png" />
-    <Resource Include="View\res\settings24gray.png" />
-    <Resource Include="View\res\stop24.png" />
-    <Resource Include="View\res\stop24gray.png" />
+    <Resource Include="res\clapperboard.png" />
+    <Resource Include="res\exit24.png" />
+    <Resource Include="res\info24.png" />
+    <Resource Include="res\pause24.png" />
+    <Resource Include="res\pause24gray.png" />
+    <Resource Include="res\play24.png" />
+    <Resource Include="res\play24gray.png" />
+    <Resource Include="res\settings24.png" />
+    <Resource Include="res\settings24gray.png" />
+    <Resource Include="res\stop24.png" />
+    <Resource Include="res\stop24gray.png" />
   </ItemGroup>
 
 </Project>

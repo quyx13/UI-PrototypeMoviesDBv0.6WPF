@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 
-namespace UI_PrototypeMoviesDBv0._6WPF
+namespace UI_PrototypeMoviesDBv0._6WPF.View
 {
     public partial class MainWindow : Window
     {
