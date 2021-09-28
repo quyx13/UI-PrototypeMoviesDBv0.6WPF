@@ -79,6 +79,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 case WorkerState.done:
                     goto case WorkerState.stopped;
                 case WorkerState.stopped:
+                    _worker.SetState(WorkerState.abort);
                     SetupWorker();
                     _timer.Reset();
                     _worker.SetState(WorkerState.ready);
