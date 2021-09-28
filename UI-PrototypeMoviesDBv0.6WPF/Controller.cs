@@ -9,6 +9,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     class Controller
     {
+        private static readonly int setupTotal = 5200;
+        private static readonly int setupWait = 1;
+
         private View.MainWindow _mainWindow;
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
@@ -25,8 +28,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Start();
 
             _worker = new Worker();
-            _worker.SetTotal(5200);
-            _worker.SetWait(1);
+            _worker.SetTotal(setupTotal);
+            _worker.SetWait(setupWait);
 
             _worker.CounterChanged += OnCounterChanged;
             _worker.WorkerDone += OnWorkerDone;
@@ -67,6 +70,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     Trace.WriteLine("...stopped...");
                     break;
                 case WorkerState.done:
+                    _worker = new Worker();
+                    _worker.SetTotal(setupTotal);
+                    _worker.SetWait(setupWait);
                     goto case WorkerState.stopped;
                 case WorkerState.stopped:
                     _timer.Reset();

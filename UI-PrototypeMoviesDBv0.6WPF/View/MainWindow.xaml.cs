@@ -19,21 +19,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             _controller = new Controller(this);
         }
 
+        #region Getter and setter
         public DispatcherTimer GetDispatcherTimer()
         {
             return _dispatcherTimer;
         }
+        #endregion
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
+        #region Commands
         private void menuExit_Click(object sender, RoutedEventArgs e)
         {
             _controller.MenuExit_Click();
@@ -41,7 +34,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void menuInfo_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -58,7 +51,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             _controller.BtnSettings_Click();
         }
+        #endregion
 
+        #region Updates
         public void UpdateWindowTitle(string text)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -220,6 +215,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                 statusTextInfo.Text = text;
             }), DispatcherPriority.Background);
         }
+        #endregion
 
         public void SetState(WorkerState workerState)
         {
