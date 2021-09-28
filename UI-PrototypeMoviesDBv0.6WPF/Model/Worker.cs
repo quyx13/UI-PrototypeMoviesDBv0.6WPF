@@ -48,6 +48,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 {
                     #region work
                     _counter++;
+                    if (_counter % 100 == 0)
+                        System.Diagnostics.Trace.WriteLine($"{_counter} % 100");
                     Thread.Sleep(_wait);
 
                     CounterChanged?.Invoke(this, EventArgs.Empty);
@@ -55,12 +57,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 }
                 else
                 {
-                    System.Diagnostics.Trace.WriteLine("DoWork else");
-                    Thread.Sleep(500);
                     return;
                 }
             }
 
+            System.Diagnostics.Trace.WriteLine("leave DoWork");
             WorkerDone?.Invoke(this, EventArgs.Empty);
         }
     }
