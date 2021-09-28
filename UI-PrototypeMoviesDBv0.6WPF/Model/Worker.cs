@@ -46,12 +46,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
             for (; _counter < _total;)
             {
-                #region work
-                _counter++;
-                Thread.Sleep(_wait);
+                if (_workerState == WorkerState.running)
+                {
+                    #region work
+                    _counter++;
+                    Thread.Sleep(_wait);
 
-                CounterChanged?.Invoke(this, EventArgs.Empty);
-                #endregion
+                    CounterChanged?.Invoke(this, EventArgs.Empty);
+                    #endregion
+                }
+                else
+                {
+                    return;
+                }
             }
 
             WorkerDone?.Invoke(this, EventArgs.Empty);
