@@ -48,24 +48,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             _controller.BtnStart_Click();
         }
 
-        private void btnPause_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            
+            _controller.BtnStop_Click();
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void btnTest_Click(object sender, RoutedEventArgs e)
-        {
-            
+            _controller.BtnSettings_Click();
         }
 
         public void UpdateWindowTitle(string text)
@@ -232,7 +222,21 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         public void SetStateReady()
         {
-            
+            UpdateBtnStart(true);
+            UpdateBtnStartImg(@"/res/play24.png");
+            UpdateBtnStartTxt("Start");
+
+            UpdateBtnStop(false);
+            UpdateBtnStopImg(@"/res/stop24gray.png");
+            UpdateBtnStopTxt("Stop");
+
+            UpdateBtnSettings(true);
+            UpdateBtnSettingsImg(@"/res/settings24.png");
+
+            UpdateStatusTextTask("0 of 0");
+            SetupStatusProgressBar(0, 1, 0);
+            UpdateStatusTextPercentage("0%");
+            UpdateStatusTextInfo("Ready");
         }
 
         public void SetStateRunning()
