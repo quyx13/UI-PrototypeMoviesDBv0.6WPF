@@ -90,11 +90,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             }
         }
 
-        public void BtnSettings_Click()
-        {
-            
-        }
-
         public void OnCounterChanged(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
