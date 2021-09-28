@@ -49,7 +49,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            _controller.BtnSettings_Click();
+
         }
         #endregion
 
