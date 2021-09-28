@@ -1,24 +1,28 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
-using UI_PrototypeMoviesDBv0._6WPF.Model;
 
 namespace UI_PrototypeMoviesDBv0._6WPF
 {
     public partial class MainWindow : Window
     {
+        private Controller _controller;
+        private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _controller = new Controller(this);
+        }
+
+        public DispatcherTimer GetDispatcherTimer()
+        {
+            return _dispatcherTimer;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
-            dispatcherTimer.Tick += timer_Tick;
-            dispatcherTimer.Start();
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -28,7 +32,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void menuExit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            _controller.MenuExit_Click();
         }
 
         private void menuInfo_Click(object sender, RoutedEventArgs e)
@@ -38,7 +42,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            Task work = Task.Factory.StartNew(() => Worker.DoWork(5200));
+            _controller.BtnStart_Click();
         }
 
         private void btnPause_Click(object sender, RoutedEventArgs e)
@@ -57,11 +61,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         }
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        void timer_Tick(object sender, EventArgs e)
         {
             
         }
