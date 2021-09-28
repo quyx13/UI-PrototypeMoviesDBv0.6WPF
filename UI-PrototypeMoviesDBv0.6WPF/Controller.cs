@@ -48,7 +48,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            Trace.WriteLine($"workerState:{_worker.GetState()}");
             switch (_worker.GetState())
             {
                 case WorkerState.ready:
@@ -62,6 +61,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
+                    Trace.WriteLine("...continued...");
                     break;
             }
         }
