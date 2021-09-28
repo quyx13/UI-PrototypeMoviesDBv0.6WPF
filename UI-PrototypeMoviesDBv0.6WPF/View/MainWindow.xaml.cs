@@ -232,6 +232,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                     UpdateBtnSettings(true);
                     UpdateBtnSettingsImg(@"/res/settings24.png");
 
+                    UpdateStatusTextRemaining($"(remaining: 00h:00m:00s)");
                     UpdateStatusTextTask("0 of 0");
                     SetupStatusProgressBar(0, 1, 0);
                     UpdateStatusTextPercentage("0%");

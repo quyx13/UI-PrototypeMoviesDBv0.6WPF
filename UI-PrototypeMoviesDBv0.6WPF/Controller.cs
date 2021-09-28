@@ -107,25 +107,25 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
-            try
-            {
-                if (_timer.Elapsed.TotalMilliseconds > 0 && _updates[_updates.Count - 1] > 0)
-                {
-                    timeRemaing = TimeSpan.FromMilliseconds((setupTotal - _updates[_updates.Count - 1]) * (_timer.Elapsed.TotalMilliseconds / _updates[_updates.Count - 1]));
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex);
-            }
-
             _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF   [{DateTime.Now.ToString("HH:mm:ss")}]   [Updates/Tick:{_updates.Count}]");
             _mainWindow.UpdateStatusTextElapsed($"{_timer.Elapsed.Hours:D2}h:{_timer.Elapsed.Minutes:D2}m:{_timer.Elapsed.Seconds:D2}s");
-            _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 
             if (_updates.Count > 0)
             {
+                TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
+                try
+                {
+                    if (_timer.Elapsed.TotalMilliseconds > 0 && _updates[_updates.Count - 1] > 0)
+                    {
+                        timeRemaing = TimeSpan.FromMilliseconds((setupTotal - _updates[_updates.Count - 1]) * (_timer.Elapsed.TotalMilliseconds / _updates[_updates.Count - 1]));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                }
+                _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
+
                 _mainWindow.UpdateStatusTextTask($"{string.Format("{0:0,0}", _updates[_updates.Count - 1])} of {string.Format("{0:0,0}", setupTotal)}");
                 _mainWindow.UpdateStatusProgressBar(_updates[_updates.Count - 1]);
                 _mainWindow.UpdateStatusTextPercentage($"{((_updates[_updates.Count - 1]) / (double)setupTotal * 100):F2}%");
