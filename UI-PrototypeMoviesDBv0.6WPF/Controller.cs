@@ -41,12 +41,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.CounterChanged += OnCounterChanged;
             _worker.WorkerDone += OnWorkerDone;
 
-            _worker.WorkerDone += OnAllCounter;
-            _worker.WorkerDone += OnEvenCounter;
-            _worker.WorkerDone += OnUnevenCounter;
-            _worker.WorkerDone += OnModulo13Counter;
-            _worker.WorkerDone += OnModulo100Counter;
-            _worker.WorkerDone += OnPrimeCounter;
+            _worker.All += OnAllCounter;
+            _worker.Even += OnEvenCounter;
+            _worker.Uneven += OnUnevenCounter;
+            _worker.Modulo13 += OnModulo13Counter;
+            _worker.Modulo100 += OnModulo100Counter;
+            _worker.Prime += OnPrimeCounter;
         }
 
         #region React on commands
@@ -115,8 +115,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _mainWindow.SetState(WorkerState.done);
             Trace.WriteLine("...done");
 
-            foreach (var key in log.Keys)
+            foreach (string key in log.Keys)
+            {
+                Trace.WriteLine($@"{key}: {log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
                 File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
+            }
         }
 
         public void OnAllCounter(object sender, EventArgs e)
