@@ -27,6 +27,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
             mainWindow.GetDispatcherTimer().Start();
 
+            SetupWorker();
+        }
+
+        private void SetupWorker()
+        {
             _worker = new Worker();
             _worker.SetTotal(setupTotal);
             _worker.SetWait(setupWait);
@@ -71,9 +76,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     Trace.WriteLine("...stopped...");
                     break;
                 case WorkerState.done:
-                    _worker = new Worker();
-                    _worker.SetTotal(setupTotal);
-                    _worker.SetWait(setupWait);
+                    SetupWorker();
                     goto case WorkerState.stopped;
                 case WorkerState.stopped:
                     _timer.Reset();
