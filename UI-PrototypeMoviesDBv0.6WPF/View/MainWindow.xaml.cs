@@ -242,10 +242,40 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                     UpdateStatusTextInfo("Ready");
                     break;
                 case WorkerState.running:
+                    UpdateBtnStart(false);
+                    UpdateBtnStartImg(@"/res/play24gray.png");
+                    UpdateBtnStartTxt("Start");
+
+                    UpdateBtnStop(true);
+                    UpdateBtnStopImg(@"/res/pause24.png");
+                    UpdateBtnStopTxt("Pause");
+
+                    UpdateBtnSettings(false);
+                    UpdateBtnSettingsImg(@"/res/settings24gray.png");
                     break;
                 case WorkerState.stopped:
+                    UpdateBtnStart(true);
+                    UpdateBtnStartImg(@"/res/play24.png");
+                    UpdateBtnStartTxt("Resume");
+
+                    UpdateBtnStop(true);
+                    UpdateBtnStopImg(@"/res/stop24.png");
+                    UpdateBtnStopTxt("Stop");
+
+                    UpdateBtnSettings(false);
+                    UpdateBtnSettingsImg(@"/res/settings24gray.png");
                     break;
                 case WorkerState.done:
+                    UpdateBtnStart(false);
+                    UpdateBtnStartImg(@"/res/play24gray.png");
+                    UpdateBtnStartTxt("Start");
+
+                    UpdateBtnStop(true);
+                    UpdateBtnStopImg(@"/res/stop24.png");
+                    UpdateBtnStopTxt("Reset");
+
+                    UpdateBtnSettings(true);
+                    UpdateBtnSettingsImg(@"/res/settings24.png");
                     break;
             }
         }
