@@ -7,12 +7,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     public class Controller
     {
-        private View.MainWindow mainWindow;
-        private Worker worker = new Worker();
+        private View.MainWindow _mainWindow;
+        private Worker _worker = new Worker();
 
         public Controller(View.MainWindow mainWindow)
         {
-            this.mainWindow = mainWindow;
+            this._mainWindow = mainWindow;
 
             mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
@@ -31,7 +31,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            Task work = Task.Factory.StartNew(() => worker.DoWork(5200));
+            Task work = Task.Factory.StartNew(() => _worker.DoWork(5200));
         }
     }
 }
