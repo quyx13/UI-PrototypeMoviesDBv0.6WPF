@@ -27,6 +27,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.SetWait(1);
 
             _worker.CounterChanged += OnCounterChanged;
+            _worker.WorkerDone += OnWorkerDone;
         }
 
         public void MenuExit_Click()
@@ -47,9 +48,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _updates.Add(_worker.GetCounter());
         }
 
-        public void OnPrimeFound(object sender, EventArgs e)
+        public void OnWorkerDone(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()}");
+            System.Diagnostics.Trace.WriteLine("...done");
         }
 
         private void timer_Tick(object sender, EventArgs e)

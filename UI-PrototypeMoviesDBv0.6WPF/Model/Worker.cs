@@ -11,6 +11,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         private WorkerState _workerState = WorkerState.ready;
 
         public event EventHandler CounterChanged;
+        public event EventHandler WorkerDone;
 
         #region Getter and setter
         public int GetCounter()
@@ -54,7 +55,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             }
 
             _workerState = WorkerState.done;
-            System.Diagnostics.Trace.WriteLine("...done");
+            WorkerDone?.Invoke(this, EventArgs.Empty);
         }
     }
 }
