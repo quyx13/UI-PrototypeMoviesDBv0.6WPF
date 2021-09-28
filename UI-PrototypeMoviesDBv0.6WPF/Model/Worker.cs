@@ -2,9 +2,9 @@
 
 namespace UI_PrototypeMoviesDBv0._6WPF.Model
 {
-    static class Worker
+    class Worker
     {
-        public static void DoWork(int number)
+        public void DoWork(int number)
         {
             for (int i = 0; i < number;)
             {

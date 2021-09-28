@@ -8,6 +8,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     public class Controller
     {
         private View.MainWindow mainWindow;
+        private Worker worker = new Worker();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -30,7 +31,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            Task work = Task.Factory.StartNew(() => Worker.DoWork(5200));
+            Task work = Task.Factory.StartNew(() => worker.DoWork(5200));
         }
     }
 }
