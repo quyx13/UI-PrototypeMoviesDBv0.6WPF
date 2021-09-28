@@ -10,7 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     class Controller
     {
-        private static readonly int setupTotal = 100000;
+        private static readonly int setupTotal = 5200;
         private static readonly int setupWait = 1;
 
         private View.MainWindow _mainWindow;
