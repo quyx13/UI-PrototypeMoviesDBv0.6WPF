@@ -55,7 +55,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             {
                 _timer.Stop();
                 _worker.SetState(WorkerState.stopped);
-                _mainWindow.SetState(WorkerState.done);
+                _mainWindow.SetState(WorkerState.stopped);
                 Trace.WriteLine("...stopped...");
             }
         }
