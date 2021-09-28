@@ -44,7 +44,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _timer.Start();
                 _worker.SetState(WorkerState.running);
                 _mainWindow.SetStateRunning();
+                Trace.WriteLine("started...");
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
+            }
+        }
+
+        public void BtnStop_Click()
+        {
+            if (_worker.GetState() == WorkerState.running)
+            {
+                _timer.Stop();
+                _worker.SetState(WorkerState.stopped);
+                _mainWindow.SetStateDone();
+                Trace.WriteLine("...stopped...");
             }
         }
 
