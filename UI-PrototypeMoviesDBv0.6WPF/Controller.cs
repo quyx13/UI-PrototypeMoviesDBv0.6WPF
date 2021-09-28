@@ -33,6 +33,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             _worker = new Worker();
             _worker.CounterChanged += OnCounterChanged;
+            _worker.PrimeFound += OnPrimeFound;
+
             _worker.SetTotal(5200);
             Task work = Task.Factory.StartNew(() => _worker.DoWork());
         }
@@ -40,6 +42,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnCounterChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public void OnPrimeFound(object sender, EventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine($"{_worker.GetCounter()} is prime!");
         }
     }
 }
