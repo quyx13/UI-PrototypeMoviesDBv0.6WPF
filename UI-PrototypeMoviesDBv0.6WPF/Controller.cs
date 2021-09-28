@@ -12,7 +12,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private View.MainWindow _mainWindow;
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
-        private WorkerState _workerState;
 
         private List<int> _updates = new List<int>();
 
@@ -40,10 +39,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnStart_Click()
         {
-            if (_workerState == WorkerState.ready)
+            if (_worker.GetState() == WorkerState.ready)
             {
-                _workerState = WorkerState.running;
                 _timer.Start();
+                _worker.SetState(WorkerState.running);
                 _mainWindow.SetStateRunning();
                 Task work = Task.Factory.StartNew(() => _worker.DoWork());
             }
@@ -56,10 +55,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void OnWorkerDone(object sender, EventArgs e)
         {
-            _workerState = WorkerState.done;
             _timer.Stop();
+            _worker.SetState(WorkerState.done);
             _mainWindow.SetStateDone();
-            System.Diagnostics.Trace.WriteLine("...done");
+            Trace.WriteLine("...done");
         }
 
         private void timer_Tick(object sender, EventArgs e)
