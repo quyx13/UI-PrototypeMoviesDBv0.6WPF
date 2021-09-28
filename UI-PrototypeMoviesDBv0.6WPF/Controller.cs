@@ -66,9 +66,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetState(WorkerState.stopped);
                     Trace.WriteLine("...stopped...");
                     break;
+                case WorkerState.done:
+                    goto case WorkerState.stopped;
                 case WorkerState.stopped:
-                    _worker.SetState(WorkerState.done);
-                    _mainWindow.SetState(WorkerState.done);
+                    _timer.Reset();
+                    _worker.SetState(WorkerState.ready);
+                    _mainWindow.SetState(WorkerState.ready);
+                    Trace.WriteLine("reset");
                     break;
             }
         }
