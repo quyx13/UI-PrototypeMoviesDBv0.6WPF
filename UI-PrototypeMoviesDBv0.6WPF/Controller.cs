@@ -68,14 +68,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
-                    Trace.WriteLine("started...");
+                    // TODO:Trace.WriteLine("started...");
+                    Log("Output", "started...");
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
                 case WorkerState.stopped:
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
-                    Trace.WriteLine("...continued...");
+                    // TODO:Trace.WriteLine("...continued...");
+                    Log("Output", "...continued...");
                     break;
             }
         }
@@ -88,7 +90,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
-                    Trace.WriteLine("...stopped...");
+                    // TODO:Trace.WriteLine("...stopped...");
+                    Log("Output", "...stopped...");
                     break;
                 case WorkerState.done:
                     goto case WorkerState.stopped;
@@ -102,7 +105,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
                     _logs.Clear();
-                    Trace.WriteLine("reset");
+                    // TODO:Trace.WriteLine("reset");
+                    Log("Output", "reset");
                     break;
             }
         }
@@ -114,7 +118,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged()
         {
-            //Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
+            // TODO:Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
+            Log("Output", $"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
         }
         #endregion
 
@@ -129,12 +134,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
-            Trace.WriteLine("...done");
+            // TODO:Trace.WriteLine("...done");
+            Log("Output", "...done");
 
             foreach (string key in _logs.Keys)
             {
-                Trace.WriteLine($@"{key}: {_logs[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
-                //File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
+                // TODO:Trace.WriteLine($@"{key}: {_logs[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
+                Log("Output", $@"{key}: {_logs[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
+                // TODO:File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
             }
         }
 
@@ -170,17 +177,22 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void LogEvent(string s)
         {
-            if (!_logs.ContainsKey(s))
-            {
-                _logs.Add(s, new List<string>());
-            }
-
             if (!string.Equals(s, "Output") && !_mainWindow.comboBox.Items.Contains(s))
             {
                 _mainWindow.AddComboBoxItem(s);
             }
 
-            _logs[s].Add(_worker.GetCounter().ToString());
+            Log(s, _worker.GetCounter().ToString());
+        }
+
+        private void Log(string log, string entry)
+        {
+            if (!_logs.ContainsKey(log))
+            {
+                _logs.Add(log, new List<string>());
+            }
+
+            _logs[log].Add(entry);
         }
         #endregion
 
@@ -201,7 +213,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex);
+                    // TODO:Trace.WriteLine(ex);
+                    Log("Output", ex.ToString());
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 

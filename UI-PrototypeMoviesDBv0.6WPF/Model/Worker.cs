@@ -77,7 +77,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 }
                 if (_workerState == WorkerState.abort)
                 {
-                    System.Diagnostics.Trace.WriteLine("...aborting...");
+                    // TODO:System.Diagnostics.Trace.WriteLine("...aborting...");
                     return;
                 }
             }
