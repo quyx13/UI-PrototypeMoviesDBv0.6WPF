@@ -175,7 +175,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _logs.Add(s, new List<string>());
             }
 
-            if (!_mainWindow.comboBox.Items.Contains(s))
+            if (!string.Equals(s, "Output") && !_mainWindow.comboBox.Items.Contains(s))
             {
                 _mainWindow.AddComboBoxItem(s);
             }
