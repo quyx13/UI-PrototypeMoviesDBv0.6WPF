@@ -18,8 +18,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             InitializeComponent();
 
-            ResetComboBoxData();
-
             _controller = new Controller(this);
         }
 
@@ -29,22 +27,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             return _dispatcherTimer;
         }
 
-        public List<string> GetComboBoxData()
-        {
-            return _comboBoxData;
-        }
-
         public void AddComboBoxData(string s)
         {
             _comboBoxData.Add(s);
-        }
-
-        public void ResetComboBoxData()
-        {
-            comboBox.ItemsSource = new List<string> { "Output" };
-            _comboBoxData = new List<string> { "Output" };
-            comboBox.ItemsSource = _comboBoxData;
-            //comboBox.SelectedItem = "Output";
         }
         #endregion
 
@@ -71,7 +56,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            _controller.BtnSettings_Click();
+            
         }
         #endregion
 
