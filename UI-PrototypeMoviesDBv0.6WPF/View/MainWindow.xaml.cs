@@ -19,6 +19,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             InitializeComponent();
 
             comboBox.ItemsSource = _comboBoxData;
+            AddComboBoxData("Output");
+            comboBox.SelectedItem = "Output";
 
             _controller = new Controller(this);
         }

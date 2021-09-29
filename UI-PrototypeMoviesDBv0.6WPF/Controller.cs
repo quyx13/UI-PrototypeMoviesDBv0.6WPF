@@ -159,7 +159,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (!_logs.ContainsKey(s))
             {
                 _logs.Add(s, new List<string>());
-                //_mainWindow.comboBox.Items.Add(s);
+                _mainWindow.AddComboBoxData(s);
             }
 
             _logs[s].Add(_worker.GetCounter().ToString());
