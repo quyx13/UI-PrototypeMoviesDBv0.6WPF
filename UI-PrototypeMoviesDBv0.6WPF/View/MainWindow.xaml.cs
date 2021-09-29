@@ -72,8 +72,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                comboBox.Items.Clear();
-                comboBox.Items.Add("Output");
+                if (comboBox.Items.Count == 0)
+                {
+                    comboBox.Items.Add("Output");
+                    comboBox.SelectedIndex = 0;
+                } 
+                else if (comboBox.Items.Count > 1)
+                {
+                    comboBox.SelectedIndex = 0;
+                    while (comboBox.Items.Count > 1)
+                    {
+                        comboBox.Items.RemoveAt(comboBox.Items.Count - 1);
+                    }
+                }
             }), DispatcherPriority.Background);
         }
 
