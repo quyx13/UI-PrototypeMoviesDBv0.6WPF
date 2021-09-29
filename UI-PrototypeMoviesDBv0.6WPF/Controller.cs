@@ -132,18 +132,15 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
-            Log("Output", "...done");// TODO:Log
 
-            foreach (string key in _log.Keys)
-            {
-                Log("Output", $@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");// TODO:Log
-                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _log[key]);
-            }
+            Log("Output", "...done");// TODO:Log
+            SaveLogToFiles();
         }
 
         public void OnAbort(object sender, EventArgs e)
         {
             Log("Output", "...aborting...");// TODO:Log
+            SaveLogToFiles();
         }
 
         public void OnAllCounter(object sender, EventArgs e)
@@ -175,6 +172,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             LogEvent("Prime");
         }
+        #endregion
 
         private void LogEvent(string s)
         {
@@ -195,7 +193,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _log[category].Add(entry);
         }
-        #endregion
+
+        private void SaveLogToFiles()
+        {
+            foreach (string key in _log.Keys)
+            {
+                Log("Output", $@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");// TODO:Log
+            } 
+
+            foreach (string key in _log.Keys)
+            {
+                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _log[key]);
+            }
+        }
 
         private void timer_Tick(object sender, EventArgs e)
         {
