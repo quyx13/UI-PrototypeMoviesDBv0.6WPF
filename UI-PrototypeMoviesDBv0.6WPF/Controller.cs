@@ -199,7 +199,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             foreach (string key in _log.Keys)
             {
                 Log("Output", $@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");// TODO:Log
-            } 
+            }
 
             foreach (string key in _log.Keys)
             {
