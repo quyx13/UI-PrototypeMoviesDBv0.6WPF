@@ -102,6 +102,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     break;
             }
         }
+
+        public void BtnSettings_Click()
+        {
+            Trace.Write($"Text\t->\t{_mainWindow.comboBox.Text}\n");
+            Trace.Write($"SelectedItem\t->\t{_mainWindow.comboBox.SelectedItem}\n");
+            Trace.Write($"SelectedIndex\t->\t{_mainWindow.comboBox.SelectedIndex}\n");
+            Trace.Write($"SelectedValue\t->\t{_mainWindow.comboBox.SelectedValue}\n");
+        }
         #endregion
 
         #region React on events
@@ -168,7 +176,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF   [{DateTime.Now.ToString("HH:mm:ss")}]   [Updates/Tick:{_updates.Count}]");
+            _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF   [{DateTime.Now.ToString("HH:mm:ss")}]   [Updates/Tick:{_updates.Count}]   [CB:{_mainWindow.comboBox.Items.Count}]");
             _mainWindow.UpdateStatusTextElapsed($"{_timer.Elapsed.Hours:D2}h:{_timer.Elapsed.Minutes:D2}m:{_timer.Elapsed.Seconds:D2}s");
 
             if (_updates.Count > 0)
