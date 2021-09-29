@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -11,10 +12,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
     {
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
+        private List<string> _comboBoxData = new List<string>();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            comboBox.ItemsSource = _comboBoxData;
 
             _controller = new Controller(this);
         }
@@ -23,6 +27,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         public DispatcherTimer GetDispatcherTimer()
         {
             return _dispatcherTimer;
+        }
+
+        public List<string> GetComboBoxData()
+        {
+            return _comboBoxData;
+        }
+
+        public void AddComboBoxData(string s)
+        {
+            _comboBoxData.Add(s);
         }
         #endregion
 
