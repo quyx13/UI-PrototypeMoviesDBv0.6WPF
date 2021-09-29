@@ -35,7 +35,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void menuInfo_Click(object sender, RoutedEventArgs e)
         {
-
+            _controller.MenuInfo_Click();
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            
+            _controller.BtnSettings_Click();
         }
 
         private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

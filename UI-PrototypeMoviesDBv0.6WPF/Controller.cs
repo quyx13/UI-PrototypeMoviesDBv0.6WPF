@@ -54,6 +54,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             Application.Current.Shutdown();
         }
 
+        public void MenuInfo_Click()
+        {
+            
+        }
+
         public void BtnStart_Click()
         {
             switch (_worker.GetState())
@@ -100,6 +105,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     Trace.WriteLine("reset");
                     break;
             }
+        }
+
+        public void BtnSettings_Click()
+        {
+
         }
 
         public void ComboBox_SelectionChanged()
