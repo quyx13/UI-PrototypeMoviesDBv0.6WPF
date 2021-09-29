@@ -52,6 +52,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             _controller.BtnSettings_Click();
         }
+
+        private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Trace.WriteLine($"{comboBox.SelectedIndex} {comboBox.SelectedItem}");
+        }
         #endregion
 
         #region Updates

@@ -72,7 +72,7 @@
                     <TextBlock x:Name="btnSettingsTxt" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" Width="45">Settings</TextBlock>
                 </Grid>
             </Button>
-            <ComboBox x:Name="comboBox" Grid.Column="4" Margin="3,3,3,3" Height="23"/>
+            <ComboBox x:Name="comboBox" Grid.Column="4" Margin="3,3,3,3" Height="23" SelectionChanged="comboBox_SelectionChanged"/>
         </Grid>
         <GroupBox Grid.Row="2" Margin="3,-4,3,3">
             <GroupBox.Header>
