@@ -17,7 +17,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
-        private Dictionary<string, List<string>> log = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>();
         private List<int> _updates = new List<int>();
 
         public Controller(View.MainWindow mainWindow)
@@ -96,6 +96,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetState(WorkerState.ready);
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _updates.Clear();
+                    _logs.Clear();
                     Trace.WriteLine("reset");
                     break;
             }
@@ -115,9 +116,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _mainWindow.SetState(WorkerState.done);
             Trace.WriteLine("...done");
 
-            foreach (string key in log.Keys)
+            foreach (string key in _logs.Keys)
             {
-                Trace.WriteLine($@"{key}: {log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
+                Trace.WriteLine($@"{key}: {_logs[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
                 //File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", log[key]);
             }
         }
@@ -155,13 +156,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void LogEvent(string s)
         {
-            if (!log.ContainsKey(s))
+            if (!_logs.ContainsKey(s))
             {
-                log.Add(s, new List<string>());
+                _logs.Add(s, new List<string>());
                 //_mainWindow.comboBox.Items.Add(s);
             }
 
-            log[s].Add(_worker.GetCounter().ToString());
+            _logs[s].Add(_worker.GetCounter().ToString());
         }
 
         private void timer_Tick(object sender, EventArgs e)

@@ -55,8 +55,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                 {
                     #region work
                     _counter++;
-                    if (_counter % 100 == 0)
-                        System.Diagnostics.Trace.WriteLine($"{_counter} % 100");
                     Thread.Sleep(_wait);
 
                     CounterChanged?.Invoke(this, EventArgs.Empty);
