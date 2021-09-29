@@ -114,7 +114,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged()
         {
-            Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
+            //Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
         }
         #endregion
 
