@@ -17,9 +17,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
-        private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>();
-        private Dictionary<string, List<string>> _logText = new Dictionary<string, List<string>>();
         private List<int> _updates = new List<int>();
+        private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -39,19 +38,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.SetTotal(setupTotal);
             _worker.SetWait(setupWait);
 
-            _worker.CounterChanged += OnCounterChanged;
-            _worker.WorkerDone += OnWorkerDone;
-
-            _worker.OnAbort += OnAbort;
-            _worker.OnAll += OnAllCounter;
-            _worker.OnEven += OnEvenCounter;
-            _worker.OnUneven += OnUnevenCounter;
-            _worker.OnModulo13 += OnModulo13Counter;
-            _worker.OnModulo100 += OnModulo100Counter;
-            _worker.OnPrime += OnPrimeCounter;
+            _worker.OnWorkStep += OnWorkStep;
+            _worker.OnWorkDone += OnWorkDone;
+            _worker.OnWorkAbort += OnWorkAbort;
         }
 
-        #region React on commands
+        #region Commands
         public void MenuExit_Click()
         {
             Application.Current.Shutdown();
@@ -59,7 +51,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void MenuInfo_Click()
         {
-            
+
         }
 
         public void BtnStart_Click()
@@ -71,6 +63,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
+                    Trace.WriteLine("started...");
                     Log("Output", "started...");// TODO:Log
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
@@ -78,6 +71,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
+                    Trace.WriteLine("...continued...");
                     Log("Output", "...continued...");// TODO:Log
                     break;
             }
@@ -91,6 +85,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
+                    Trace.WriteLine("...stopped...");
                     Log("Output", "...stopped...");// TODO:Log
                     break;
                 case WorkerState.done:
@@ -104,6 +99,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
+                    Trace.WriteLine("reset");
                     Log("Output", "reset");// TODO:Log
                     break;
             }
@@ -116,74 +112,37 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged()
         {
-            Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
-            Log("Output", $"ComboBox_SelectionChanged to {_mainWindow.comboBox.SelectedIndex} <-> {_mainWindow.comboBox.SelectedItem}");// TODO:Log
+            Trace.WriteLine($"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");
+            Log("Output", $"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");// TODO:Log
         }
         #endregion
 
-        #region React on events
-        public void OnCounterChanged(object sender, EventArgs e)
+        #region Work events
+        public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
         }
 
-        public void OnWorkerDone(object sender, EventArgs e)
+        public void OnWorkDone(object sender, EventArgs e)
         {
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
 
+            Trace.WriteLine("...done");
             Log("Output", "...done");// TODO:Log
             SaveLogToFiles();
         }
 
-        public void OnAbort(object sender, EventArgs e)
+        public void OnWorkAbort(object sender, EventArgs e)
         {
+            Trace.WriteLine("...aborting...");
             Log("Output", "...aborting...");// TODO:Log
             SaveLogToFiles();
         }
-
-        public void OnAllCounter(object sender, EventArgs e)
-        {
-            LogEvent("All");
-        }
-
-        public void OnEvenCounter(object sender, EventArgs e)
-        {
-            LogEvent("Even");
-        }
-
-        public void OnUnevenCounter(object sender, EventArgs e)
-        {
-            LogEvent("Uneven");
-        }
-
-        public void OnModulo13Counter(object sender, EventArgs e)
-        {
-            LogEvent("Modulo13");
-        }
-
-        public void OnModulo100Counter(object sender, EventArgs e)
-        {
-            LogEvent("Modulo100");
-        }
-
-        public void OnPrimeCounter(object sender, EventArgs e)
-        {
-            LogEvent("Prime");
-        }
         #endregion
 
-        private void LogEvent(string s)
-        {
-            if (!string.Equals(s, "Output") && !_mainWindow.comboBox.Items.Contains(s))
-            {
-                _mainWindow.AddComboBoxItem(s);
-            }
-
-            Log(s, _worker.GetCounter().ToString());
-        }
-
+        #region Log
         private void Log(string category, string entry)
         {
             if (!_log.ContainsKey(category))
@@ -198,6 +157,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             foreach (string key in _log.Keys)
             {
+                Trace.WriteLine($@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");
                 Log("Output", $@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");// TODO:Log
             }
 
@@ -206,6 +166,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _log[key]);
             }
         }
+        #endregion
 
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -224,6 +185,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
+                    Trace.WriteLine(ex);
                     Log("Output", ex.ToString());// TODO:Log
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
