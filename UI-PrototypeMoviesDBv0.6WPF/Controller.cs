@@ -95,6 +95,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.ready);
                     _mainWindow.SetState(WorkerState.ready);
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
+                    _mainWindow.ResetComboBoxData();
                     _updates.Clear();
                     _logs.Clear();
                     Trace.WriteLine("reset");
