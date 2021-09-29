@@ -65,14 +65,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
-                    Log("started...");// TODO:Log
+                    Log("started...");
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
                 case WorkerState.stopped:
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
-                    Log("...continued...");// TODO:Log
+                    Log("...continued...");
                     break;
             }
         }
@@ -85,7 +85,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
-                    Log("...stopped...");// TODO:Log
+                    Log("...stopped...");
                     break;
                 case WorkerState.done:
                     goto case WorkerState.stopped;
@@ -98,8 +98,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
-                    Log("reset");// TODO:Log
-                    _mainWindow.UpdateTextBoxText("");
+                    Log("reset");
                     break;
             }
         }
@@ -111,11 +110,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged()
         {
-            Log($"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");// TODO:Log
+            //Log($"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");// TODO:Log
 
             UpdateLogText();
-            _mainWindow.UpdateTextBoxText(_logText[_mainWindow.comboBox.SelectedItem.ToString()]);
-            _mainWindow.ScrollToEnd();
+            Thread.Sleep(200);
+            _mainWindow.UpdateTextBoxText("");
+            //Thread.Sleep(200);
+            Trace.WriteLine($"Versuch:\t{_mainWindow.comboBox.SelectedItem.ToString()}");
+            //_mainWindow.UpdateTextBoxText(_logText[_mainWindow.comboBox.SelectedItem.ToString()]);
         }
         #endregion
 
@@ -132,13 +134,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
 
-            Log("...done");// TODO:Log
+            Log("...done");
             SaveLogToFiles();
         }
 
         public void OnWorkAbort(object sender, EventArgs e)
         {
-            Log("...aborting...");// TODO:Log
+            Log("...aborting...");
             SaveLogToFiles();
         }
         #endregion
@@ -188,7 +190,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             foreach (string key in _logText.Keys)
             {
-                Log($@"{key} ({_logText[key].Split(Environment.NewLine).Length}) -> C:\Users\Anwender\Downloads\_{key}_Text.log");// TODO:Log
+                Log($@"{key} ({_logText[key].Split(Environment.NewLine).Length}) -> C:\Users\Anwender\Downloads\_{key}_Text.log");
             }
 
             Thread.Sleep(200);
@@ -219,7 +221,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
-                    Log(ex.ToString());// TODO:Log
+                    Log(ex.ToString());
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 
