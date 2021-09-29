@@ -54,7 +54,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            
+            if (_controller == null)
+                Trace.WriteLine("null");
+            //_controller.ComboBox_SelectionChanged();
         }
         #endregion
 
