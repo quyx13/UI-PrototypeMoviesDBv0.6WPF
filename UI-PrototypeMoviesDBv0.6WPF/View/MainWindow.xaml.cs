@@ -12,7 +12,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
     {
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
-        private List<string> _comboBoxData = new List<string>();
+        private List<string> _comboBoxData = new List<string>() { "Output" };
 
         public MainWindow()
         {
