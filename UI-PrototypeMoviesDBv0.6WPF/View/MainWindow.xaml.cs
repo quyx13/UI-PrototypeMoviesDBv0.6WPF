@@ -12,7 +12,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
     {
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
-        private List<string> _comboBoxData = new List<string>() { "Output" };
 
         public MainWindow()
         {
@@ -25,11 +24,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         public DispatcherTimer GetDispatcherTimer()
         {
             return _dispatcherTimer;
-        }
-
-        public void AddComboBoxData(string s)
-        {
-            _comboBoxData.Add(s);
         }
         #endregion
 
@@ -56,11 +50,28 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            
+            _controller.BtnSettings_Click();
         }
         #endregion
 
         #region Updates
+        public void AddComboBoxItem(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                comboBox.Items.Add(text);
+            }), DispatcherPriority.Background);
+        }
+
+        public void ClearComboBoxItems()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                comboBox.Items.Clear();
+                comboBox.Items.Add("Output");
+            }), DispatcherPriority.Background);
+        }
+
         public void UpdateWindowTitle(string text)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -238,6 +249,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
                     UpdateBtnSettings(true);
                     UpdateBtnSettingsImg(@"/res/settings24.png");
+
+                    ClearComboBoxItems();
 
                     UpdateStatusTextRemaining($"(remaining: 00h:00m:00s)");
                     UpdateStatusTextTask("0 of 0");

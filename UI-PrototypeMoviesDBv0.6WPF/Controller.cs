@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -101,6 +100,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     break;
             }
         }
+
+        public void BtnSettings_Click()
+        {
+            _mainWindow.ClearComboBoxItems();
+        }
         #endregion
 
         #region React on events
@@ -159,7 +163,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (!_logs.ContainsKey(s))
             {
                 _logs.Add(s, new List<string>());
-                _mainWindow.AddComboBoxData(s);
+            }
+
+            if (!_mainWindow.comboBox.Items.Contains(s))
+            {
+                _mainWindow.AddComboBoxItem(s);
             }
 
             _logs[s].Add(_worker.GetCounter().ToString());
