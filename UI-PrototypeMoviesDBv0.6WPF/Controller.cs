@@ -100,6 +100,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     break;
             }
         }
+
+        public void ComboBox_SelectionChanged()
+        {
+            //Trace.WriteLine($"{comboBox.SelectedIndex} {comboBox.SelectedItem}");
+        }
         #endregion
 
         #region React on events
