@@ -100,11 +100,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     break;
             }
         }
-
-        public void BtnSettings_Click()
-        {
-            _mainWindow.ClearComboBoxItems();
-        }
         #endregion
 
         #region React on events
@@ -156,7 +151,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             LogEvent("Prime");
         }
-        #endregion
 
         private void LogEvent(string s)
         {
@@ -172,6 +166,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _logs[s].Add(_worker.GetCounter().ToString());
         }
+        #endregion
 
         private void timer_Tick(object sender, EventArgs e)
         {
