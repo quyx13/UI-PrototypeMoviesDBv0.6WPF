@@ -13,12 +13,13 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler CounterChanged;
         public event EventHandler WorkerDone;
 
-        public event EventHandler All;
-        public event EventHandler Even;
-        public event EventHandler Uneven;
-        public event EventHandler Modulo13;
-        public event EventHandler Modulo100;
-        public event EventHandler Prime;
+        public event EventHandler OnAbort;
+        public event EventHandler OnAll;
+        public event EventHandler OnEven;
+        public event EventHandler OnUneven;
+        public event EventHandler OnModulo13;
+        public event EventHandler OnModulo100;
+        public event EventHandler OnPrime;
 
         #region Getter and setter
         public int GetCounter()
@@ -58,26 +59,26 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     Thread.Sleep(_wait);
 
                     CounterChanged?.Invoke(this, EventArgs.Empty);
-                    All?.Invoke(this, EventArgs.Empty);
+                    OnAll?.Invoke(this, EventArgs.Empty);
 
                     if (_counter % 2 == 0)
-                        Even?.Invoke(this, EventArgs.Empty);
+                        OnEven?.Invoke(this, EventArgs.Empty);
                     else
-                        Uneven?.Invoke(this, EventArgs.Empty);
+                        OnUneven?.Invoke(this, EventArgs.Empty);
 
                     if (_counter % 13 == 0)
-                        Modulo13?.Invoke(this, EventArgs.Empty);
+                        OnModulo13?.Invoke(this, EventArgs.Empty);
 
                     if (_counter % 100 == 0)
-                        Modulo100?.Invoke(this, EventArgs.Empty);
+                        OnModulo100?.Invoke(this, EventArgs.Empty);
 
                     if (IsPrime(_counter))
-                        Prime?.Invoke(this, EventArgs.Empty);
+                        OnPrime?.Invoke(this, EventArgs.Empty);
                     #endregion
                 }
                 if (_workerState == WorkerState.abort)
                 {
-                    // TODO:System.Diagnostics.Trace.WriteLine("...aborting...");
+                    OnAbort?.Invoke(this, EventArgs.Empty);// TODO:Log
                     return;
                 }
             }
