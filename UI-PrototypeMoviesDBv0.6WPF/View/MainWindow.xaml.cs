@@ -17,6 +17,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             InitializeComponent();
 
             _controller = new Controller(this);
+            ClearComboBoxItems();
         }
 
         #region Getter and setter
@@ -54,9 +55,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (_controller == null)
-                Trace.WriteLine("null");
-            //_controller.ComboBox_SelectionChanged();
+            _controller.ComboBox_SelectionChanged();
         }
         #endregion
 
@@ -266,8 +265,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
                     UpdateBtnSettings(true);
                     UpdateBtnSettingsImg(@"/res/settings24.png");
-
-                    ClearComboBoxItems();
 
                     UpdateStatusTextRemaining($"(remaining: 00h:00m:00s)");
                     UpdateStatusTextTask("0 of 0");
