@@ -127,7 +127,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkDone(object sender, EventArgs e)
         {
             _timer.Stop();
-            _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
             Log("...done");
         }
@@ -171,7 +170,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _log.Add(category, new List<string>());
             }
 
-            Trace.WriteLine($"{category}\t{text}");
+            if (!_mainWindow.comboBox.Items.Contains(category))
+            {
+                _mainWindow.AddComboBoxItem(category);
+            }
+
             _log[category].Add(text);
         }
 
@@ -228,39 +231,27 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _updates.Clear();
             }
 
-            if (_log["Output"].Count > 0)
-            {
-                ShowLog1();
-                //ShowLog2();
-            }
+            ShowLog("Output");
         }
 
-        private void ShowLog1()
+        private void ShowLog(string category)
         {
-            string[] logUpdates = _log["Output"].ToArray();
-            _log["Output"].Clear();
-            foreach (string logUpdate in logUpdates)
+            if (_log[category].Count > 0)
             {
-                if (!_logText.ContainsKey("Output"))
+                string[] logUpdates = _log[category].ToArray();
+                _log[category].Clear();
+                foreach (string logUpdate in logUpdates)
                 {
-                    _logText.Add("Output", string.Empty);
+                    if (!_logText.ContainsKey(category))
+                    {
+                        _logText.Add(category, string.Empty);
+                    }
+                    _logText[category] += logUpdate + '\n';
+
+                    _mainWindow.UpdateTextBox(logUpdate);
                 }
-                _logText["Output"] += logUpdate + '\n';
-
-                _mainWindow.UpdateTextBox(logUpdate);
+                _mainWindow.ScrollToEnd();
             }
-            _mainWindow.ScrollToEnd();
-        }
-
-        private void ShowLog2()
-        {
-            var logUpdates = _log["Output"].ToArray();
-            _log["Output"].Clear();
-            foreach (string logUpdate in logUpdates)
-            {
-                _logText["Output"] += logUpdate + '\n';
-            }
-            _mainWindow.UpdateTextBoxText(_logText["Output"]);
         }
     }
 }
