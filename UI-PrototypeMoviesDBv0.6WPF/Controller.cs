@@ -117,30 +117,31 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         }
 
-        public void ComboBox_SelectionChanged(string category)
+        public void ComboBox_SelectionChangedA(string category)
         {
-            //_category = category;
-            //_mainWindow.ClearTextBox();
-            //_lastIndex[category] = 0;
-
             _category = category;
             _mainWindow.ClearTextBox();
-            string text = string.Empty;
-            try
-            {
-                text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.ToString());
-            }
-            
+            _lastIndex[category] = 0;
+        }
+
+        public void ComboBox_SelectionChangedB(string category)
+        {
+            _category = category;
+            _mainWindow.ClearTextBox();
             if (_logs[category].Count > 0)
             {
-                _lastIndex[category] = _logs[category].Count - 1;
+                try
+                {
+                    string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray()) + '\n';
+                    _mainWindow.UpdateTextBoxText(text);
+                    _mainWindow.ScrollToEnd();
+                    _lastIndex[category] = _logs[category].Count - 1;
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex.ToString());
+                }
             }
-            _mainWindow.UpdateTextBoxText(text);
-            _mainWindow.ScrollToEnd();
         }
         #endregion
 
