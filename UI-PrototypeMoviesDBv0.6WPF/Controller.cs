@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -100,8 +101,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.ClearComboBoxItems();
                     _mainWindow.ClearTextBox();
                     _updates.Clear();
-                    ClearLog();
                     Log("reset");
+                    SaveLogToFile();
                     break;
             }
         }
@@ -172,7 +173,29 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void SaveLogToFile()
         {
+            foreach (string key in _logText.Keys)
+            {
+                Log($@"{key} -> C:\Users\Anwender\Downloads\_{key}.log");
+            }
 
+            foreach (string key in _log.Keys)
+            {
+                foreach (string value in _log[key])
+                {
+                    if (!_logText.ContainsKey(key))
+                    {
+                        _logText.Add(key, string.Empty);
+                    }
+                    _logText[key] += value;
+                }
+            }
+
+            foreach (string key in _logText.Keys)
+            {
+                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
+            }
+
+            ClearLog();
         }
         #endregion
 
