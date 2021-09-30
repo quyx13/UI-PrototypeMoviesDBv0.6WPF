@@ -25,7 +25,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _mainWindow = mainWindow;
             _mainWindow.SetState(WorkerState.ready);
 
-            mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
+            mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(40);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
             mainWindow.GetDispatcherTimer().Start();
 
