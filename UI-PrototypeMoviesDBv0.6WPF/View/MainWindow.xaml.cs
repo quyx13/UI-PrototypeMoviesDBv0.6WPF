@@ -230,7 +230,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.Clear();
+                textBox.Text = "";
             }), DispatcherPriority.Background);
         }
 
@@ -238,7 +238,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.AppendText(text + Environment.NewLine);
+                textBox.Text += text + Environment.NewLine;
             }), DispatcherPriority.Background);
         }
 
@@ -254,7 +254,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.ScrollToEnd();
+                scrollViewer.ScrollToEnd();
             }), DispatcherPriority.Background);
         }
         #endregion
