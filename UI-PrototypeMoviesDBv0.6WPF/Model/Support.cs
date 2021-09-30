@@ -12,10 +12,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         abort
     }
 
-    public class ListEventArgs : EventArgs
+    public class EventArgsList : EventArgs
     {
         public List<string> Data { get; set; }
-        public ListEventArgs(List<string> data)
+        public EventArgsList(List<string> data)
         {
             Data = data;
         }

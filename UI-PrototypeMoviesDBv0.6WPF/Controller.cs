@@ -41,6 +41,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.OnWorkStep += OnWorkStep;
             _worker.OnWorkDone += OnWorkDone;
             _worker.OnWorkAbort += OnWorkAbort;
+
+            _worker.OnLog += OnLog;
         }
 
         #region Commands
@@ -131,6 +133,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkAbort(object sender, EventArgs e)
         {
             Trace.WriteLine("...aborting...");
+        }
+
+        public void OnLog(object sender, EventArgsList e)
+        {
+            // Do what you want with e.Data (It is a List of string)
         }
         #endregion
 
