@@ -14,8 +14,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler OnWorkDone;
         public event EventHandler OnWorkAbort;
 
-        public int Test { get; set; }
-
         #region Getter and setter
         public int GetCounter()
         {
