@@ -5,6 +5,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 {
     internal class Worker
     {
+        #region Initialization
         private int _counter = 0;
         private int _total = 0;
         private int _wait = 0;
@@ -16,6 +17,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public event Action<string> OnLog;
         public event Action<string, string> OnCatLog;
+        #endregion
 
         #region Getter and setter
         public int GetCounter()
