@@ -56,9 +56,24 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     _counter++;
                     Thread.Sleep(_wait);
 
+                    OnCatLog?.Invoke("Step", _counter.ToString());
                     if (_counter % 100 == 0)
                     {
-                        OnCatLog?.Invoke("Step", _counter.ToString());
+                        OnCatLog?.Invoke("Modulo100", _counter.ToString());
+                    }
+
+                    if (_counter % 13 == 0)
+                    {
+                        OnCatLog?.Invoke("Modulo13", _counter.ToString());
+                    }
+
+                    if (_counter % 2 == 0)
+                    {
+                        OnCatLog?.Invoke("Even", _counter.ToString());
+                    }
+                    else
+                    {
+                        OnCatLog?.Invoke("Odd", _counter.ToString());
                     }
 
                     OnWorkStep?.Invoke(this, EventArgs.Empty);
