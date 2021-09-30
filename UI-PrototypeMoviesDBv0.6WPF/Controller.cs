@@ -191,12 +191,20 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void SaveLogToFile()
         {
-            foreach (string key in _logs.Keys)
-            {
-                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _logs[key]);
-            }
+            MessageBoxResult result = MessageBox.Show("Save log(s) to file(s)?", "Save logs", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            ClearLog();
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    foreach (string key in _logs.Keys)
+                    {
+                        File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _logs[key]);
+                    }
+                    ClearLog();
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
         }
 
         private void ShowLog(string category)
