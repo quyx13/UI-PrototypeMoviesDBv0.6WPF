@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -64,7 +63,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                comboBox.Items.Add(text);
+                if (!comboBox.Items.Contains(text))
+                {
+                    comboBox.Items.Add(text);
+                }
             }), DispatcherPriority.Background);
         }
 
