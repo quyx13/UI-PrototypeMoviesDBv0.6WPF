@@ -98,6 +98,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetState(WorkerState.ready);
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
+                    _mainWindow.ClearTextBox();
                     _updates.Clear();
                     ClearLog();
                     Log("reset");
@@ -150,8 +151,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         #region Log
         private void ClearLog()
         {
-            SaveLogToFile();
-
             _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
             _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
         }
