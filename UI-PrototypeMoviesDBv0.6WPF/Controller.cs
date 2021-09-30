@@ -49,7 +49,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _worker.OnLog += OnLog;
             _worker.OnCatLog += OnCatLog;
-        } 
+        }
         #endregion
 
         #region Commands
