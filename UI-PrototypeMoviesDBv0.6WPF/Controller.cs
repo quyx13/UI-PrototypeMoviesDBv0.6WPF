@@ -17,6 +17,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
+        private string _category = string.Empty;
         private List<int> _updates = new List<int>();
         private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
         private Dictionary<string, int> _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
@@ -112,9 +113,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         }
 
-        public void ComboBox_SelectionChanged()
+        public void ComboBox_SelectionChanged(string category)
         {
-
+            _category = category;
         }
         #endregion
 
@@ -216,7 +217,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             }
 
             //ShowLog("Output");
-            ShowLog("Step");
+            //ShowLog("Step");
+            ShowLog(_category);
         }
 
         private void ShowLog(string category)
