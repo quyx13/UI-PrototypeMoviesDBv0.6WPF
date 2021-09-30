@@ -168,7 +168,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _logs.Add(category, new List<string>());
             }
 
-            _logs[category].Add(text);
+            if (!_lastIndex.ContainsKey(category))
+            {
+                _lastIndex.Add(category, 0);
+            }
+
+            _logs[category].Add($"{DateTime.Now.ToString("HH:mm:ss.ffff")}\t{text}");
         }
 
         private void SaveLogToFile()
@@ -211,21 +216,25 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _updates.Clear();
             }
 
-            ShowLog("Output");
+            //ShowLog("Output");
+            ShowLog("Step");
         }
 
         private void ShowLog(string category)
         {
-            if (_logs[category].Count > 0)
+            if (_logs.ContainsKey(category))
             {
-                string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
-                _lastIndex[category] += _logs[category].Count;
-
-                foreach (string logUpdate in logUpdates)
+                if (_logs[category].Count > _lastIndex[category])
                 {
-                    _mainWindow.UpdateTextBox(logUpdate);
+                    string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
+                    _lastIndex[category] += _logs[category].Count - _lastIndex[category];
+
+                    foreach (string logUpdate in logUpdates)
+                    {
+                        _mainWindow.UpdateTextBox(logUpdate);
+                    }
+                    _mainWindow.ScrollToEnd();
                 }
-                _mainWindow.ScrollToEnd();
             }
         }
     }
