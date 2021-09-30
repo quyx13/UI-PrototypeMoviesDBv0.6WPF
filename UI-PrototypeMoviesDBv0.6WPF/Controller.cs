@@ -113,11 +113,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             //Log($"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");// TODO:Log
 
             UpdateLogText();
-            Thread.Sleep(200);
-            _mainWindow.UpdateTextBoxText("");
-            //Thread.Sleep(200);
-            Trace.WriteLine($"Versuch:\t{_mainWindow.comboBox.SelectedItem.ToString()}");
-            //_mainWindow.UpdateTextBoxText(_logText[_mainWindow.comboBox.SelectedItem.ToString()]);
+
+            foreach (string key in _logText.Keys)
+            {
+                Trace.WriteLine($"Versuch:\t{key} -> {_logText[key].Length} Chars");
+                _mainWindow.UpdateTextBoxText(_logText[key]);
+            }
         }
         #endregion
 
