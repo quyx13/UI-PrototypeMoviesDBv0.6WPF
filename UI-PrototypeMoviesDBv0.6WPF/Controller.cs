@@ -18,6 +18,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private List<int> _updates = new List<int>();
         private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+        private Dictionary<string, string> _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -115,6 +116,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
+            Log(_worker.GetCounter().ToString());
         }
 
         public void OnWorkDone(object sender, EventArgs e)
@@ -122,11 +124,35 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
+            SaveLogToFile();
         }
 
         public void OnWorkAbort(object sender, EventArgs e)
         {
             Trace.WriteLine("...aborting...");
+            SaveLogToFile();
+        }
+        #endregion
+
+        #region Log
+        private void Log(string text)
+        {
+            _log["Output"].Add(text);
+        }
+
+        private void Log(string category, string text)
+        {
+            if (!_log.ContainsKey(category))
+            {
+                _log.Add(category, new List<string>());
+            }
+
+            _log[category].Add(text);
+        }
+
+        private void SaveLogToFile()
+        {
+
         }
         #endregion
 
@@ -137,12 +163,24 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             if (_updates.Count > 0)
             {
-                var updates = _updates.ToArray();
-                foreach (int update in updates)
+                //var updates = _updates.ToArray();
+                //foreach (int update in updates)
+                //{
+                //    _mainWindow.UpdateTextBox(update.ToString());
+                //}
+                //_mainWindow.ScrollToEnd();
+
+                if (_log["Output"].Count > 0)
                 {
-                    _mainWindow.UpdateTextBox(update.ToString());
+                    var updates = _log["Output"].ToArray();
+                    _log["Output"].Clear();
+
+                    foreach (string update in updates)
+                    {
+                        _mainWindow.UpdateTextBox(update);
+                    }
+                    _mainWindow.ScrollToEnd();
                 }
-                _mainWindow.ScrollToEnd();
 
                 TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
                 try
