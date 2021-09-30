@@ -43,6 +43,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.OnWorkAbort += OnWorkAbort;
 
             _worker.OnLog += OnLog;
+            _worker.OnCatLog += OnCatLog;
         }
 
         #region Commands
@@ -135,9 +136,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             Log("...aborting...");
         }
 
-        public void OnLog(string s)
+        public void OnLog(string text)
         {
-            Log(s);
+            Log(text);
+        }
+
+        public void OnCatLog(string category, string text)
+        {
+            Log(category, text);
         }
         #endregion
 
