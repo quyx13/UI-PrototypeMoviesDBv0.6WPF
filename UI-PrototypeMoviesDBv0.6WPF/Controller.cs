@@ -122,6 +122,17 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _category = category;
             _mainWindow.ClearTextBox();
             _lastIndex[category] = 0;
+
+            //_category = category;
+            //_mainWindow.ClearTextBox();
+            ////string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
+            //string text = category;
+            //if (_logs[category].Count > 0)
+            //{
+            //    _lastIndex[category] = _logs[category].Count - 1;
+            //}
+            //_mainWindow.UpdateTextBoxText(text);
+            //_mainWindow.ScrollToEnd();
         }
         #endregion
 

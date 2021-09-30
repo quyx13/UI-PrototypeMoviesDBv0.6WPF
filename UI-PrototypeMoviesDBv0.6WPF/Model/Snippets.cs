@@ -1,6 +1,6 @@
 ﻿namespace UI_PrototypeMoviesDBv0._6WPF
 {
-    internal class Snippets
+    internal class Snippets1    // String-List as EventArgs
     {
         // in Support:
         //public class EventArgsList : EventArgs
@@ -27,5 +27,10 @@
         //        Trace.WriteLine(s);
         //    }
         //}
+    }
+
+    internal class Snippets2    // Item-Range of a List to Array and then to a single string
+    {
+        //string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
     }
 }

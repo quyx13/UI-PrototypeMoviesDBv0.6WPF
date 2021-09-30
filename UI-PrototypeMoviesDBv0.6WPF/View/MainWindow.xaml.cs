@@ -246,9 +246,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.Clear();
                 textBox.Text = text;
-                textBox.ScrollToEnd();
             }), DispatcherPriority.Background);
         }
 
