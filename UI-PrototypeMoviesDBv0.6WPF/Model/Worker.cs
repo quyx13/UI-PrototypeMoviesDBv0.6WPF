@@ -15,7 +15,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler OnWorkDone;
         public event EventHandler OnWorkAbort;
 
-        public event EventHandler<EventArgsList> OnLog;
+        //public event EventHandler<EventArgsList> OnLog;
+        public event EventHandler<EventArgsString> OnLog;
 
         #region Getter and setter
         public int GetCounter()
@@ -46,7 +47,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public void DoWork()
         {
-            OnLog?.Invoke(this, new EventArgsList(new List<string>() { "DoWork() gerade gestartet" }));
+            //OnLog?.Invoke(this, new EventArgsList(new List<string>() { "DoWork() gerade gestartet" }));
+            OnLog?.Invoke(this, new EventArgsString("DoWork() gerade gestartet"));
 
             for (; _counter < _total;)
             {

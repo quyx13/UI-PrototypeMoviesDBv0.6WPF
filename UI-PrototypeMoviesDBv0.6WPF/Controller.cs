@@ -135,12 +135,17 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             Trace.WriteLine("...aborting...");
         }
 
-        public void OnLog(object sender, EventArgsList e)
+        //public void OnLog(object sender, EventArgsList e)
+        //{
+        //    foreach (string s in e.Data)
+        //    {
+        //        Trace.WriteLine(s);
+        //    }
+        //}
+
+        public void OnLog(object sender, EventArgsString e)
         {
-            foreach (string s in e.Data)
-            {
-                Trace.WriteLine(s);
-            }
+            Trace.WriteLine(e);
         }
         #endregion
 
