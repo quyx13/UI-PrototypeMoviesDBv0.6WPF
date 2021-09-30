@@ -55,7 +55,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     #region Work
                     _counter++;
                     Thread.Sleep(_wait);
-                    OnCatLog?.Invoke("Step", _counter.ToString());
+
+                    if (_counter % 100 == 0)
+                    {
+                        OnCatLog?.Invoke("Step", _counter.ToString());
+                    }
 
                     OnWorkStep?.Invoke(this, EventArgs.Empty);
                     #endregion

@@ -17,10 +17,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
-        private string _category = string.Empty;
         private List<int> _updates = new List<int>();
         private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
         private Dictionary<string, int> _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
+
+        private string _category = string.Empty;
+        private List<string> _categoryList = new List<string>();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -115,8 +117,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged(string category)
         {
-            Trace.WriteLine($"category from [{_category}] to [{category}]");
+            Trace.WriteLine("ComboBox_SelectionChanged");
             _category = category;
+            _mainWindow.ClearTextBox();
+            _lastIndex[category] = 0;
         }
         #endregion
 
@@ -155,6 +159,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
             _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
+            _categoryList = new List<string>() { { "Output" } };
         }
 
         private void Log(string text)
@@ -172,6 +177,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (!_lastIndex.ContainsKey(category))
             {
                 _lastIndex.Add(category, 0);
+            }
+
+            if (!_categoryList.Contains(category))
+            {
+                _categoryList.Add(category);
+                _mainWindow.AddComboBoxItem(category);
             }
 
             _logs[category].Add($"{DateTime.Now.ToString("HH:mm:ss.ffff")}\t{text}");
