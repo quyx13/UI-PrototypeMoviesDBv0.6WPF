@@ -130,15 +130,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                 btnSettingsTxt.Text = text;
             }), DispatcherPriority.Background);
         }
-
-        public void UpdateTextBoxText(string text)
-        {
-            ClearTextBox();
-            Dispatcher.Invoke(new Action(() =>
-            {
-                textBox.Text = text;
-            }), DispatcherPriority.Background);
-        }
         #endregion
 
         #region Updates for ComboBox
@@ -248,6 +239,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             Dispatcher.Invoke(new Action(() =>
             {
                 textBox.AppendText(text + Environment.NewLine);
+            }), DispatcherPriority.Background);
+        }
+
+        public void UpdateTextBoxText(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                textBox.Clear();
+                textBox.Text = text;
+                textBox.ScrollToEnd();
             }), DispatcherPriority.Background);
         }
 

@@ -189,6 +189,18 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.ScrollToEnd();
                 }
 
+                //if (_log["Output"].Count > 0)
+                //{
+                //    var logUpdates = _log["Output"].ToArray();
+                //    _log["Output"].Clear();
+
+                //    foreach (string logUpdate in logUpdates)
+                //    {
+                //        _logText["Output"] += logUpdate + '\n';
+                //    }
+                //    _mainWindow.UpdateTextBoxText(_logText["Output"]);
+                //}
+
                 TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
                 try
                 {
