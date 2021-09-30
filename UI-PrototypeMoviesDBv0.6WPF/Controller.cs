@@ -119,7 +119,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged(string category)
         {
-            Trace.WriteLine("ComboBox_SelectionChanged");
             _category = category;
             _mainWindow.ClearTextBox();
             _lastIndex[category] = 0;
@@ -194,7 +193,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             foreach (string key in _logs.Keys)
             {
-                Trace.WriteLine($"{key}:\t{_logs[key].Count}");
                 File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _logs[key]);
             }
 
