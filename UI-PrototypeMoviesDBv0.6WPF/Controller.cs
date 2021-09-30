@@ -200,22 +200,31 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             if (_log["Output"].Count > 0)
             {
-                string[] logUpdates = _log["Output"].ToArray();
-                _log["Output"].Clear();
-                foreach (string logUpdate in logUpdates)
-                {
-                    _mainWindow.UpdateTextBox(logUpdate);
-                }
-                _mainWindow.ScrollToEnd();
-
-                //    var logUpdates = _log["Output"].ToArray();
-                //    _log["Output"].Clear();
-                //    foreach (string logUpdate in logUpdates)
-                //    {
-                //        _logText["Output"] += logUpdate + '\n';
-                //    }
-                //    _mainWindow.UpdateTextBoxText(_logText["Output"]);
+                ShowLog1();
+                //ShowLog2();
             }
+        }
+
+        private void ShowLog1()
+        {
+            string[] logUpdates = _log["Output"].ToArray();
+            _log["Output"].Clear();
+            foreach (string logUpdate in logUpdates)
+            {
+                _mainWindow.UpdateTextBox(logUpdate);
+            }
+            _mainWindow.ScrollToEnd();
+        }
+
+        private void ShowLog2()
+        {
+            var logUpdates = _log["Output"].ToArray();
+            _log["Output"].Clear();
+            foreach (string logUpdate in logUpdates)
+            {
+                _logText["Output"] += logUpdate + '\n';
+            }
+            _mainWindow.UpdateTextBoxText(_logText["Output"]);
         }
     }
 }
