@@ -59,7 +59,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void MenuInfo_Click()
         {
-            
+
         }
 
         public void BtnStart_Click()

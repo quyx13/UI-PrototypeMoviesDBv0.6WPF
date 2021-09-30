@@ -76,7 +76,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                 {
                     comboBox.Items.Add("Output");
                     comboBox.SelectedIndex = 0;
-                } 
+                }
                 else if (comboBox.Items.Count > 1)
                 {
                     comboBox.SelectedIndex = 0;
@@ -254,7 +254,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         public void SetState(WorkerState workerState)
         {
-            switch (workerState) {
+            switch (workerState)
+            {
                 case WorkerState.ready:
                     UpdateBtnStart(true);
                     UpdateBtnStartImg(@"/res/play24.png");
