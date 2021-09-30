@@ -137,7 +137,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void OnLog(object sender, EventArgsList e)
         {
-            // Do what you want with e.Data (It is a List of string)
+            foreach (string s in e.Data)
+            {
+                Trace.WriteLine(s);
+            }
         }
         #endregion
 
