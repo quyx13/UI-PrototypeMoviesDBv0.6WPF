@@ -65,14 +65,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
-                    Trace.WriteLine("started...");
+                    Log("started...");
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
                 case WorkerState.stopped:
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
-                    Trace.WriteLine("...continued...");
+                    Log("...continued...");
                     break;
             }
         }
@@ -85,7 +85,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
-                    Trace.WriteLine("...stopped...");
+                    Log("...stopped...");
                     break;
                 case WorkerState.done:
                     goto case WorkerState.stopped;
@@ -99,7 +99,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
                     ClearLog();
-                    Trace.WriteLine("reset");
+                    Log("reset");
                     break;
             }
         }
@@ -119,7 +119,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
-            Log(_worker.GetCounter().ToString());
+            //Log(_worker.GetCounter().ToString());
         }
 
         public void OnWorkDone(object sender, EventArgs e)
@@ -127,17 +127,17 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
-            Trace.WriteLine("...done");
+            Log("...done");
         }
 
         public void OnWorkAbort(object sender, EventArgs e)
         {
-            Trace.WriteLine("...aborting...");
+            Log("...aborting...");
         }
 
         public void OnLog(string s)
         {
-            Trace.WriteLine(s);
+            Log(s);
         }
         #endregion
 
@@ -151,6 +151,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         }
         private void Log(string text)
         {
+            Trace.WriteLine(text);
             _log["Output"].Add(text);
         }
 
@@ -187,7 +188,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex);
+                    Log(ex.ToString());
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 
