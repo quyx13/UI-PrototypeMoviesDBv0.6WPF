@@ -20,7 +20,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private List<int> _updates = new List<int>();
         private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-        private Dictionary<string, int> _lastIndex = new Dictionary<string, int>();
+        private Dictionary<string, int> _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -153,6 +153,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private void ClearLog()
         {
             _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+            _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
         }
 
         private void Log(string text)
@@ -218,6 +219,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             if (_logs[category].Count > 0)
             {
                 string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
+                _lastIndex[category] += _logs[category].Count;
 
                 foreach (string logUpdate in logUpdates)
                 {
