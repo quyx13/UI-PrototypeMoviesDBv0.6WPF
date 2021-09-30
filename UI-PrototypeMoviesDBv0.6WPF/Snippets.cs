@@ -3,12 +3,12 @@
     class Snippets
     {
         // in Support:
-        //public class EventArgs<T> : EventArgs
+        //public class EventArgsList : EventArgs
         //{
-        //    public T Value { get; set; }
-        //    public EventArgs(T value)
+        //    public List<string> Data { get; set; }
+        //    public EventArgsList(List<string> data)
         //    {
-        //        Value = value;
+        //        Data = data;
         //    }
         //}
 
