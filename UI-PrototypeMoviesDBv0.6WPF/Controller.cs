@@ -170,13 +170,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             if (_updates.Count > 0)
             {
-                //var updates = _updates.ToArray();
-                //foreach (int update in updates)
-                //{
-                //    _mainWindow.UpdateTextBox(update.ToString());
-                //}
-                //_mainWindow.ScrollToEnd();
-
                 TimeSpan timeRemaing = TimeSpan.FromMilliseconds(0);
                 try
                 {
@@ -200,7 +193,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             if (_log["Output"].Count > 0)
             {
-                var logUpdates = _log["Output"].ToArray();
+                string[] logUpdates = _log["Output"].ToArray();
                 _log["Output"].Clear();
                 foreach (string logUpdate in logUpdates)
                 {
