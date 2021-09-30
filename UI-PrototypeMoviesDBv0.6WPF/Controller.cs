@@ -122,7 +122,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
-            //Log(_worker.GetCounter().ToString());
         }
 
         public void OnWorkDone(object sender, EventArgs e)
@@ -150,15 +149,15 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         #endregion
 
         #region Log
-        //private void ClearLog()
-        //{
-        //    _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-        //}
+        private void ClearLog()
+        {
+            _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+        }
 
-        //private void ClearLogText()
-        //{
-        //    _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
-        //}
+        private void ClearLogText()
+        {
+            _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+        }
 
         private void Log(string text)
         {
@@ -178,27 +177,27 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void SaveLogToFile()
         {
+            foreach (string key in _log.Keys)
+            {
+                foreach (string value in _log[key])
+                {
+                    if (!_logText.ContainsKey(key))
+                    {
+                        _logText.Add(key, string.Empty);
+                    }
+                    _logText[key] += value + '\n';
+                }
+            }
+
+            ClearLog();
+
             foreach (string key in _logText.Keys)
             {
                 File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
             }
-        }
 
-        //private void UpdateLogText()
-        //{
-        //    foreach (string key in _log.Keys)
-        //    {
-        //        foreach (string value in _log[key])
-        //        {
-        //            if (!_logText.ContainsKey(key))
-        //            {
-        //                _logText.Add(key, string.Empty);
-        //            }
-        //            _logText[key] += value + '\n';
-        //        }
-        //    }
-        //    ClearLog();
-        //}
+            ClearLogText();
+        }
         #endregion
 
         private void timer_Tick(object sender, EventArgs e)
@@ -242,6 +241,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _log["Output"].Clear();
             foreach (string logUpdate in logUpdates)
             {
+                if (!_logText.ContainsKey("Output"))
+                {
+                    _logText.Add("Output", string.Empty);
+                }
+                _logText["Output"] += logUpdate + '\n';
+
                 _mainWindow.UpdateTextBox(logUpdate);
             }
             _mainWindow.ScrollToEnd();

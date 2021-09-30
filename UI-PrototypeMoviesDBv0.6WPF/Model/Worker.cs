@@ -47,7 +47,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public void DoWork()
         {
             OnLog?.Invoke("DoWork() gerade gestartet");
-            OnCatLog?.Invoke("Step", "gesteppt");
 
             for (; _counter < _total;)
             {
@@ -56,6 +55,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     #region Work
                     _counter++;
                     Thread.Sleep(_wait);
+                    OnCatLog?.Invoke("Step", _counter.ToString());
 
                     OnWorkStep?.Invoke(this, EventArgs.Empty);
                     #endregion
