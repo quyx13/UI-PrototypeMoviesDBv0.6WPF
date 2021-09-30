@@ -14,7 +14,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler OnWorkDone;
         public event EventHandler OnWorkAbort;
 
-        //public event EventHandler<EventArgsList> OnLog;
         public event Action<string> OnLog;
 
         #region Getter and setter
@@ -46,7 +45,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public void DoWork()
         {
-            //OnLog?.Invoke(this, new EventArgsList(new List<string>() { "DoWork() gerade gestartet" }));
             OnLog?.Invoke("DoWork() gerade gestartet");
 
             for (; _counter < _total;)
