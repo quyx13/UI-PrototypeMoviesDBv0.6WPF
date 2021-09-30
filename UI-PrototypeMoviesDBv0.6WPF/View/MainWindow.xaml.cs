@@ -58,46 +58,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         }
         #endregion
 
-        #region Updates
-        public void AddComboBoxItem(string text)
-        {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                if (!comboBox.Items.Contains(text))
-                {
-                    comboBox.Items.Add(text);
-                }
-            }), DispatcherPriority.Background);
-        }
-
-        public void ClearComboBoxItems()
-        {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                if (comboBox.Items.Count == 0)
-                {
-                    comboBox.Items.Add("Output");
-                    comboBox.SelectedIndex = 0;
-                }
-                else if (comboBox.Items.Count > 1)
-                {
-                    comboBox.SelectedIndex = 0;
-                    while (comboBox.Items.Count > 1)
-                    {
-                        comboBox.Items.RemoveAt(comboBox.Items.Count - 1);
-                    }
-                }
-            }), DispatcherPriority.Background);
-        }
-
-        public void UpdateWindowTitle(string text)
-        {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                Title = text;
-            }), DispatcherPriority.Background);
-        }
-
+        #region Updates for Buttons
         public void UpdateBtnStart(bool isEnabled)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -172,29 +133,48 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 
         public void UpdateTextBoxText(string text)
         {
+            ClearTextBox();
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.Clear();
                 textBox.Text = text;
             }), DispatcherPriority.Background);
         }
+        #endregion
 
-        public void UpdateTextBox(string text)
+        #region Updates for ComboBox
+        public void AddComboBoxItem(string text)
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.AppendText(text + Environment.NewLine);
+                if (!comboBox.Items.Contains(text))
+                {
+                    comboBox.Items.Add(text);
+                }
             }), DispatcherPriority.Background);
         }
 
-        public void ScrollToEnd()
+        public void ClearComboBoxItems()
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                textBox.ScrollToEnd();
+                if (comboBox.Items.Count == 0)
+                {
+                    comboBox.Items.Add("Output");
+                    comboBox.SelectedIndex = 0;
+                }
+                else if (comboBox.Items.Count > 1)
+                {
+                    comboBox.SelectedIndex = 0;
+                    while (comboBox.Items.Count > 1)
+                    {
+                        comboBox.Items.RemoveAt(comboBox.Items.Count - 1);
+                    }
+                }
             }), DispatcherPriority.Background);
         }
+        #endregion
 
+        #region Updates for StatusBar
         public void UpdateStatusTextElapsed(string text)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -254,6 +234,42 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         }
         #endregion
 
+        #region Updates for TextBox
+        public void ClearTextBox()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                textBox.Clear();
+            }), DispatcherPriority.Background);
+        }
+
+        public void UpdateTextBox(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                textBox.AppendText(text + Environment.NewLine);
+            }), DispatcherPriority.Background);
+        }
+
+        public void ScrollToEnd()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                textBox.ScrollToEnd();
+            }), DispatcherPriority.Background);
+        }
+        #endregion
+
+        #region Updates for Window
+        public void UpdateWindowTitle(string text)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                Title = text;
+            }), DispatcherPriority.Background);
+        }
+        #endregion
+
         public void SetState(WorkerState workerState)
         {
             switch (workerState)
@@ -275,6 +291,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
                     SetupStatusProgressBar(0, 1, 0);
                     UpdateStatusTextPercentage("0%");
                     UpdateStatusTextInfo("Ready");
+
+                    ClearTextBox();
                     break;
                 case WorkerState.running:
                     UpdateBtnStart(false);
