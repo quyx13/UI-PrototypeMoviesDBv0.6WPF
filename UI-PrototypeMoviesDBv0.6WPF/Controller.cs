@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -96,7 +97,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
-                    ClearLog();
+                    SaveLogToFile();
+
                     Trace.WriteLine("reset");
                     break;
             }
@@ -137,8 +139,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         #region Log
         private void ClearLog()
         {
-            SaveLogToFile();
-
             _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
             _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
         }
@@ -159,7 +159,29 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void SaveLogToFile()
         {
+            foreach (string key in _logText.Keys)
+            {
+                Log($@"{key} -> C:\Users\Anwender\Downloads\_{key}.log");
+            }
 
+            foreach (string key in _log.Keys)
+            {
+                foreach (string value in _log[key])
+                {
+                    if (!_logText.ContainsKey(key))
+                    {
+                        _logText.Add(key, string.Empty);
+                    }
+                    _logText[key] += value;
+                }
+            }
+
+            foreach (string key in _logText.Keys)
+            {
+                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
+            }
+
+            ClearLog();
         }
         #endregion
 
