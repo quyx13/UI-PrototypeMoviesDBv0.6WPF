@@ -10,9 +10,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         private int _wait = 0;
         private WorkerState _workerState = WorkerState.ready;
 
-        public event EventHandler OnWorkStep;
-        public event EventHandler OnWorkDone;
-        public event EventHandler OnWorkAbort;
+        public event EventHandler CounterChanged;
+        public event EventHandler WorkerDone;
+
+        public event EventHandler OnAbort;
+        public event EventHandler OnAll;
+        public event EventHandler OnEven;
+        public event EventHandler OnUneven;
+        public event EventHandler OnModulo13;
+        public event EventHandler OnModulo100;
+        public event EventHandler OnPrime;
 
         #region Getter and setter
         public int GetCounter()
@@ -51,17 +58,47 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     _counter++;
                     Thread.Sleep(_wait);
 
-                    OnWorkStep?.Invoke(this, EventArgs.Empty);
+                    CounterChanged?.Invoke(this, EventArgs.Empty);
+                    OnAll?.Invoke(this, EventArgs.Empty);
+
+                    if (_counter % 2 == 0)
+                        OnEven?.Invoke(this, EventArgs.Empty);
+                    else
+                        OnUneven?.Invoke(this, EventArgs.Empty);
+
+                    if (_counter % 13 == 0)
+                        OnModulo13?.Invoke(this, EventArgs.Empty);
+
+                    if (_counter % 100 == 0)
+                        OnModulo100?.Invoke(this, EventArgs.Empty);
+
+                    if (IsPrime(_counter))
+                        OnPrime?.Invoke(this, EventArgs.Empty);
                     #endregion
                 }
                 if (_workerState == WorkerState.abort)
                 {
-                    OnWorkAbort?.Invoke(this, EventArgs.Empty);
+                    OnAbort?.Invoke(this, EventArgs.Empty);// TODO:Log
                     return;
                 }
             }
 
-            OnWorkDone?.Invoke(this, EventArgs.Empty);
+            WorkerDone?.Invoke(this, EventArgs.Empty);
+        }
+
+        private static bool IsPrime(int number)
+        {
+            if (number <= 1) return false;
+            if (number == 2) return true;
+            if (number % 2 == 0) return false;
+
+            var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+            for (int i = 3; i <= boundary; i += 2)
+                if (number % i == 0)
+                    return false;
+
+            return true;
         }
     }
 }

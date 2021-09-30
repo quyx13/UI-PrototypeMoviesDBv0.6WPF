@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -18,9 +17,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Stopwatch _timer = new Stopwatch();
         private Worker _worker;
 
-        private List<int> _updates = new List<int>();
         private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>();
-        private Dictionary<string, string> _logText = new Dictionary<string, string>();
+        private Dictionary<string, List<string>> _logText = new Dictionary<string, List<string>>();
+        private List<int> _updates = new List<int>();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -40,12 +39,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.SetTotal(setupTotal);
             _worker.SetWait(setupWait);
 
-            _worker.OnWorkStep += OnWorkStep;
-            _worker.OnWorkDone += OnWorkDone;
-            _worker.OnWorkAbort += OnWorkAbort;
+            _worker.CounterChanged += OnCounterChanged;
+            _worker.WorkerDone += OnWorkerDone;
+
+            _worker.OnAbort += OnAbort;
+            _worker.OnAll += OnAllCounter;
+            _worker.OnEven += OnEvenCounter;
+            _worker.OnUneven += OnUnevenCounter;
+            _worker.OnModulo13 += OnModulo13Counter;
+            _worker.OnModulo100 += OnModulo100Counter;
+            _worker.OnPrime += OnPrimeCounter;
         }
 
-        #region Commands
+        #region React on commands
         public void MenuExit_Click()
         {
             Application.Current.Shutdown();
@@ -65,14 +71,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
-                    Log("started...");
+                    Log("Output", "started...");// TODO:Log
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
                 case WorkerState.stopped:
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
-                    Log("...continued...");
+                    Log("Output", "...continued...");// TODO:Log
                     break;
             }
         }
@@ -85,7 +91,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
-                    Log("...stopped...");
+                    Log("Output", "...stopped...");// TODO:Log
                     break;
                 case WorkerState.done:
                     goto case WorkerState.stopped;
@@ -98,7 +104,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
-                    Log("reset");
+                    Log("Output", "reset");// TODO:Log
                     break;
             }
         }
@@ -110,100 +116,96 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged()
         {
-            //Log($"ComboBox_SelectionChanged: {_mainWindow.comboBox.SelectedIndex} ({_mainWindow.comboBox.SelectedItem})");// TODO:Log
-
-            UpdateLogText();
-
-            foreach (string key in _logText.Keys)
-            {
-                Trace.WriteLine($"Versuch:\t{key} -> {_logText[key].Length} Chars");
-                _mainWindow.UpdateTextBoxText(_logText[key]);
-            }
+            Trace.WriteLine($"{_mainWindow.comboBox.SelectedIndex} {_mainWindow.comboBox.SelectedItem}");
+            Log("Output", $"ComboBox_SelectionChanged to {_mainWindow.comboBox.SelectedIndex} <-> {_mainWindow.comboBox.SelectedItem}");// TODO:Log
         }
         #endregion
 
-        #region Work events
-        public void OnWorkStep(object sender, EventArgs e)
+        #region React on events
+        public void OnCounterChanged(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
-            Log("Step", _worker.GetCounter().ToString());
         }
 
-        public void OnWorkDone(object sender, EventArgs e)
+        public void OnWorkerDone(object sender, EventArgs e)
         {
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
 
-            Log("...done");
+            Log("Output", "...done");// TODO:Log
             SaveLogToFiles();
         }
 
-        public void OnWorkAbort(object sender, EventArgs e)
+        public void OnAbort(object sender, EventArgs e)
         {
-            Log("...aborting...");
+            Log("Output", "...aborting...");// TODO:Log
             SaveLogToFiles();
+        }
+
+        public void OnAllCounter(object sender, EventArgs e)
+        {
+            LogEvent("All");
+        }
+
+        public void OnEvenCounter(object sender, EventArgs e)
+        {
+            LogEvent("Even");
+        }
+
+        public void OnUnevenCounter(object sender, EventArgs e)
+        {
+            LogEvent("Uneven");
+        }
+
+        public void OnModulo13Counter(object sender, EventArgs e)
+        {
+            LogEvent("Modulo13");
+        }
+
+        public void OnModulo100Counter(object sender, EventArgs e)
+        {
+            LogEvent("Modulo100");
+        }
+
+        public void OnPrimeCounter(object sender, EventArgs e)
+        {
+            LogEvent("Prime");
         }
         #endregion
 
-        #region Log
-        private void Log(string entry)
+        private void LogEvent(string s)
         {
-            if (!_log.ContainsKey("Output"))
+            if (!string.Equals(s, "Output") && !_mainWindow.comboBox.Items.Contains(s))
             {
-                _log.Add("Output", new List<string>());
-                _mainWindow.AddComboBoxItem("Output");
+                _mainWindow.AddComboBoxItem(s);
             }
 
-            _log["Output"].Add(entry);
+            Log(s, _worker.GetCounter().ToString());
         }
+
         private void Log(string category, string entry)
         {
             if (!_log.ContainsKey(category))
             {
                 _log.Add(category, new List<string>());
-                _mainWindow.AddComboBoxItem(category);
             }
 
             _log[category].Add(entry);
         }
 
-        private void UpdateLogText()
+        private void SaveLogToFiles()
         {
             foreach (string key in _log.Keys)
             {
-                while (_log[key].Count > 0)
-                {
-                    if (!_logText.ContainsKey(key))
-                    {
-                        _logText.Add(key, string.Empty);
-                    }
-
-                    _logText[key] += _log[key][0] + Environment.NewLine;
-                    _log[key].RemoveAt(0);
-                }
+                Log("Output", $@"{key}: {_log[key].Count} Entries -> C:\Users\Anwender\Downloads\_{key}.log");// TODO:Log
             }
 
-            _log.Clear();
-        }
-
-        private void SaveLogToFiles()
-        {
-            foreach (string key in _logText.Keys)
+            foreach (string key in _log.Keys)
             {
-                Log($@"{key} ({_logText[key].Split(Environment.NewLine).Length}) -> C:\Users\Anwender\Downloads\_{key}_Text.log");
-            }
-
-            Thread.Sleep(200);
-
-            UpdateLogText();
-
-            foreach (string key in _logText.Keys)
-            {
-                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}_Text.log", _logText[key]);
+                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _log[key]);
             }
         }
-        #endregion
 
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -222,7 +224,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
-                    Log(ex.ToString());
+                    Log("Output", ex.ToString());// TODO:Log
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 
@@ -231,21 +233,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _mainWindow.UpdateStatusTextPercentage($"{((_updates[_updates.Count - 1]) / (double)setupTotal * 100):F2}%");
 
                 _updates.Clear();
-            }
-
-            if (_log.Count > 0)
-            {
-                if (_log.ContainsKey(_mainWindow.comboBox.SelectedItem.ToString()))
-                {
-                    foreach (string s in _log[_mainWindow.comboBox.SelectedItem.ToString()])
-                    {
-                        Trace.WriteLine($"{s}");
-                        _mainWindow.UpdateTextBox(s);
-                        _mainWindow.ScrollToEnd();
-                    }
-                }
-
-                UpdateLogText();
             }
         }
     }
