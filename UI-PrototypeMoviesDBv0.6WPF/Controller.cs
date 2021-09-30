@@ -10,6 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     class Controller
     {
+        #region Initialization
         private static readonly int setupTotal = 5200;
         private static readonly int setupWait = 1;
 
@@ -48,7 +49,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _worker.OnLog += OnLog;
             _worker.OnCatLog += OnCatLog;
-        }
+        } 
+        #endregion
 
         #region Commands
         public void MenuExit_Click()
@@ -124,7 +126,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         }
         #endregion
 
-        #region Work events
+        #region Events
         public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
@@ -198,6 +200,24 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             ClearLog();
         }
+
+        private void ShowLog(string category)
+        {
+            if (_logs.ContainsKey(category))
+            {
+                if (_logs[category].Count > _lastIndex[category])
+                {
+                    string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
+                    _lastIndex[category] += _logs[category].Count - _lastIndex[category];
+
+                    foreach (string logUpdate in logUpdates)
+                    {
+                        _mainWindow.UpdateTextBox(logUpdate);
+                    }
+                    _mainWindow.ScrollToEnd();
+                }
+            }
+        }
         #endregion
 
         private void timer_Tick(object sender, EventArgs e)
@@ -228,27 +248,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _updates.Clear();
             }
 
-            //ShowLog("Output");
-            //ShowLog("Step");
             ShowLog(_category);
-        }
-
-        private void ShowLog(string category)
-        {
-            if (_logs.ContainsKey(category))
-            {
-                if (_logs[category].Count > _lastIndex[category])
-                {
-                    string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
-                    _lastIndex[category] += _logs[category].Count - _lastIndex[category];
-
-                    foreach (string logUpdate in logUpdates)
-                    {
-                        _mainWindow.UpdateTextBox(logUpdate);
-                    }
-                    _mainWindow.ScrollToEnd();
-                }
-            }
         }
     }
 }
