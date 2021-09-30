@@ -78,7 +78,7 @@
             <GroupBox.Header>
                 <Label>Output</Label>
             </GroupBox.Header>
-            <TextBox x:Name="textBox" VerticalScrollBarVisibility="Auto" IsReadOnly="True" IsUndoEnabled="False" HorizontalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="textBox" VerticalScrollBarVisibility="Auto" IsReadOnly="True" IsUndoEnabled="False" HorizontalScrollBarVisibility="Auto" AllowDrop="False"/>
         </GroupBox>
         <StatusBar Grid.Row="3">
             <StatusBar.ItemsPanel>
