@@ -179,12 +179,12 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
                 if (_log["Output"].Count > 0)
                 {
-                    var updates = _log["Output"].ToArray();
+                    var logUpdates = _log["Output"].ToArray();
                     _log["Output"].Clear();
 
-                    foreach (string update in updates)
+                    foreach (string logUpdate in logUpdates)
                     {
-                        _mainWindow.UpdateTextBox(update);
+                        _mainWindow.UpdateTextBox(logUpdate);
                     }
                     _mainWindow.ScrollToEnd();
                 }
