@@ -155,6 +155,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
             _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
         }
+
         private void Log(string text)
         {
             Log("Output", text);
@@ -178,6 +179,18 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 Log($@"{key} -> C:\Users\Anwender\Downloads\_{key}.log");
             }
 
+            UpdateLogText();
+
+            foreach (string key in _logText.Keys)
+            {
+                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
+            }
+
+            ClearLog();
+        }
+
+        private void UpdateLogText()
+        {
             foreach (string key in _log.Keys)
             {
                 foreach (string value in _log[key])
@@ -186,16 +199,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     {
                         _logText.Add(key, string.Empty);
                     }
-                    _logText[key] += value;
+                    _logText[key] += value + '\n';
                 }
             }
-
-            foreach (string key in _logText.Keys)
-            {
-                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
-            }
-
-            ClearLog();
         }
         #endregion
 
@@ -229,6 +235,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             if (_log["Output"].Count > 0)
             {
+                UpdateLogText();
+
                 ShowLog1();
                 //ShowLog2();
             }
