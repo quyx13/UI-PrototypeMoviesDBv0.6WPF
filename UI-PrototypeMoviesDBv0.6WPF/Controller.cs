@@ -8,7 +8,7 @@ using UI_PrototypeMoviesDBv0._6WPF.Model;
 
 namespace UI_PrototypeMoviesDBv0._6WPF
 {
-    class Controller
+    internal class Controller
     {
         #region Initialization
         private static readonly int setupTotal = 5200;

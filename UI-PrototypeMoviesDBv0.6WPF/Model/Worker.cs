@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace UI_PrototypeMoviesDBv0._6WPF.Model
 {
-    class Worker
+    internal class Worker
     {
         private int _counter = 0;
         private int _total = 0;

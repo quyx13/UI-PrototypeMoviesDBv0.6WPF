@@ -1,6 +1,6 @@
 ﻿namespace UI_PrototypeMoviesDBv0._6WPF
 {
-    class Snippets
+    internal class Snippets
     {
         // in Support:
         //public class EventArgsList : EventArgs
