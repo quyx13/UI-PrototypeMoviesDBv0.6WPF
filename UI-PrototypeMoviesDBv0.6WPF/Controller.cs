@@ -115,6 +115,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void ComboBox_SelectionChanged(string category)
         {
+            Trace.WriteLine($"category from [{_category}] to [{category}]");
             _category = category;
         }
         #endregion
