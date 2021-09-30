@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using UI_PrototypeMoviesDBv0._6WPF.Model;
@@ -127,6 +128,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         public void OnWorkDone(object sender, EventArgs e)
         {
             _timer.Stop();
+            _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
             Log("...done");
         }
@@ -170,11 +172,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _log.Add(category, new List<string>());
             }
 
-            if (!_mainWindow.comboBox.Items.Contains(category))
-            {
-                _mainWindow.AddComboBoxItem(category);
-            }
-
             _log[category].Add(text);
         }
 
@@ -197,6 +194,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             foreach (string key in _logText.Keys)
             {
                 File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
+            }
+
+            foreach (string key in _logText.Keys)
+            {
+                Trace.WriteLine($"{key}:\t{_logText[key].Length}");
             }
 
             ClearLogText();
@@ -232,6 +234,40 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             }
 
             ShowLog("Output");
+
+            //foreach (string category in _log.Keys)
+            //{
+            //    string[] logUpdates = _log[category].ToArray();
+
+            //    if (string.Equals(category, "Output"))
+            //    {
+            //        _log[category].Clear();
+            //    }
+            //    else
+            //    {
+            //        _log.Remove(category);
+            //    }
+
+            //    if (logUpdates.Length > 0)
+            //    {
+            //        if (!_logText.ContainsKey(category))
+            //        {
+            //            _logText.Add(category, string.Empty);
+            //        }
+
+            //        if (!_mainWindow.comboBox.Items.Contains(category))
+            //        {
+            //            _mainWindow.AddComboBoxItem(category);
+            //        }
+
+            //        for (int j = 0; j < logUpdates.Length; j++)
+            //        {
+            //            _logText[category] += logUpdates[j] + '\n';
+            //        }
+            //    }
+
+            //    ClearLog();
+            //}
         }
 
         private void ShowLog(string category)
