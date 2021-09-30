@@ -157,8 +157,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         }
         private void Log(string text)
         {
-            Trace.WriteLine(text);
-            _log["Output"].Add(text);
+            Log("Output", text);
         }
 
         private void Log(string category, string text)
@@ -168,6 +167,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _log.Add(category, new List<string>());
             }
 
+            Trace.WriteLine($"{category}\t{text}");
             _log[category].Add(text);
         }
 
