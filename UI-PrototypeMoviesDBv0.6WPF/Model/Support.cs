@@ -20,13 +20,4 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             Data = data;
         }
     }
-
-    public class EventArgsString : EventArgs
-    {
-        public string Data { get; set; }
-        public EventArgsString(string data)
-        {
-            Data = data;
-        }
-    }
 }

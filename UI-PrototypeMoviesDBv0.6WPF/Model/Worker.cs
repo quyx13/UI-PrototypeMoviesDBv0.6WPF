@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace UI_PrototypeMoviesDBv0._6WPF.Model
@@ -16,7 +15,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler OnWorkAbort;
 
         //public event EventHandler<EventArgsList> OnLog;
-        public event EventHandler<EventArgsString> OnLog;
+        public event Action<string> OnLog;
 
         #region Getter and setter
         public int GetCounter()
@@ -48,7 +47,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public void DoWork()
         {
             //OnLog?.Invoke(this, new EventArgsList(new List<string>() { "DoWork() gerade gestartet" }));
-            OnLog?.Invoke(this, new EventArgsString("DoWork() gerade gestartet"));
+            OnLog?.Invoke("DoWork() gerade gestartet");
 
             for (; _counter < _total;)
             {

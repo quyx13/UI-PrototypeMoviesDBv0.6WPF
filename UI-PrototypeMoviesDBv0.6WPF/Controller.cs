@@ -143,9 +143,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         //    }
         //}
 
-        public void OnLog(object sender, EventArgsString e)
+        public void OnLog(string s)
         {
-            Trace.WriteLine(e.Data);
+            Trace.WriteLine(s);
         }
         #endregion
 
