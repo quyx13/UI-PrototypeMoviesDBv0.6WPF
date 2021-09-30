@@ -19,8 +19,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Worker _worker;
 
         private List<int> _updates = new List<int>();
-        private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-        private Dictionary<string, string> _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+        private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+        private Dictionary<string, int> _lastIndex = new Dictionary<string, int>();
 
         public Controller(View.MainWindow mainWindow)
         {
@@ -152,12 +152,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         #region Log
         private void ClearLog()
         {
-            _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-        }
-
-        private void ClearLogText()
-        {
-            _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+            _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
         }
 
         private void Log(string text)
@@ -167,41 +162,23 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         private void Log(string category, string text)
         {
-            if (!_log.ContainsKey(category))
+            if (!_logs.ContainsKey(category))
             {
-                _log.Add(category, new List<string>());
+                _logs.Add(category, new List<string>());
             }
 
-            _log[category].Add(text);
+            _logs[category].Add(text);
         }
 
         private void SaveLogToFile()
         {
-            foreach (string key in _log.Keys)
+            foreach (string key in _logs.Keys)
             {
-                foreach (string value in _log[key])
-                {
-                    if (!_logText.ContainsKey(key))
-                    {
-                        _logText.Add(key, string.Empty);
-                    }
-                    _logText[key] += value + '\n';
-                }
+                Trace.WriteLine($"{key}:\t{_logs[key].Count}");
+                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _logs[key]);
             }
 
             ClearLog();
-
-            foreach (string key in _logText.Keys)
-            {
-                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
-            }
-
-            foreach (string key in _logText.Keys)
-            {
-                Trace.WriteLine($"{key}:\t{_logText[key].Length}");
-            }
-
-            ClearLogText();
         }
         #endregion
 
@@ -234,56 +211,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             }
 
             ShowLog("Output");
-
-            //foreach (string category in _log.Keys)
-            //{
-            //    string[] logUpdates = _log[category].ToArray();
-
-            //    if (string.Equals(category, "Output"))
-            //    {
-            //        _log[category].Clear();
-            //    }
-            //    else
-            //    {
-            //        _log.Remove(category);
-            //    }
-
-            //    if (logUpdates.Length > 0)
-            //    {
-            //        if (!_logText.ContainsKey(category))
-            //        {
-            //            _logText.Add(category, string.Empty);
-            //        }
-
-            //        if (!_mainWindow.comboBox.Items.Contains(category))
-            //        {
-            //            _mainWindow.AddComboBoxItem(category);
-            //        }
-
-            //        for (int j = 0; j < logUpdates.Length; j++)
-            //        {
-            //            _logText[category] += logUpdates[j] + '\n';
-            //        }
-            //    }
-
-            //    ClearLog();
-            //}
         }
 
         private void ShowLog(string category)
         {
-            if (_log[category].Count > 0)
+            if (_logs[category].Count > 0)
             {
-                string[] logUpdates = _log[category].ToArray();
-                _log[category].Clear();
+                string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
+
                 foreach (string logUpdate in logUpdates)
                 {
-                    if (!_logText.ContainsKey(category))
-                    {
-                        _logText.Add(category, string.Empty);
-                    }
-                    _logText[category] += logUpdate + '\n';
-
                     _mainWindow.UpdateTextBox(logUpdate);
                 }
                 _mainWindow.ScrollToEnd();
