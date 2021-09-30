@@ -125,7 +125,16 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             _category = category;
             _mainWindow.ClearTextBox();
-            string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
+            string text = string.Empty;
+            try
+            {
+                text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.ToString());
+            }
+            
             if (_logs[category].Count > 0)
             {
                 _lastIndex[category] = _logs[category].Count - 1;
