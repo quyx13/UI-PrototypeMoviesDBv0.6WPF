@@ -96,6 +96,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
+                    ClearLog();
                     Trace.WriteLine("reset");
                     break;
             }
@@ -125,17 +126,22 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
             Trace.WriteLine("...done");
-            SaveLogToFile();
         }
 
         public void OnWorkAbort(object sender, EventArgs e)
         {
             Trace.WriteLine("...aborting...");
-            SaveLogToFile();
         }
         #endregion
 
         #region Log
+        private void ClearLog()
+        {
+            SaveLogToFile();
+
+            _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+            _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+        }
         private void Log(string text)
         {
             _log["Output"].Add(text);
