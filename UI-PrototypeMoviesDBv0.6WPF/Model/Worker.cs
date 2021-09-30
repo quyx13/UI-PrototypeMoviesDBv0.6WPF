@@ -14,6 +14,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
         public event EventHandler OnWorkDone;
         public event EventHandler OnWorkAbort;
 
+        public event Action<string> OnLog;
+        public event Action<string, string> OnCatLog;
+
         #region Getter and setter
         public int GetCounter()
         {
@@ -43,6 +46,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
 
         public void DoWork()
         {
+            OnLog?.Invoke("DoWork() gerade gestartet");
+
             for (; _counter < _total;)
             {
                 if (_workerState == WorkerState.running)
@@ -50,6 +55,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
                     #region Work
                     _counter++;
                     Thread.Sleep(_wait);
+
+                    if (_counter % 100 == 0)
+                    {
+                        OnCatLog?.Invoke("Step", _counter.ToString());
+                    }
 
                     OnWorkStep?.Invoke(this, EventArgs.Empty);
                     #endregion

@@ -10,6 +10,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 {
     class Controller
     {
+        #region Initialization
         private static readonly int setupTotal = 5200;
         private static readonly int setupWait = 1;
 
@@ -18,15 +19,18 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         private Worker _worker;
 
         private List<int> _updates = new List<int>();
-        private Dictionary<string, List<string>> _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-        private Dictionary<string, string> _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+        private Dictionary<string, List<string>> _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+        private Dictionary<string, int> _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
+
+        private string _category = string.Empty;
+        private List<string> _categoryList = new List<string>();
 
         public Controller(View.MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
             _mainWindow.SetState(WorkerState.ready);
 
-            mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(100);
+            mainWindow.GetDispatcherTimer().Interval = TimeSpan.FromMilliseconds(40);
             mainWindow.GetDispatcherTimer().Tick += timer_Tick;
             mainWindow.GetDispatcherTimer().Start();
 
@@ -42,7 +46,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _worker.OnWorkStep += OnWorkStep;
             _worker.OnWorkDone += OnWorkDone;
             _worker.OnWorkAbort += OnWorkAbort;
+
+            _worker.OnLog += OnLog;
+            _worker.OnCatLog += OnCatLog;
         }
+        #endregion
 
         #region Commands
         public void MenuExit_Click()
@@ -64,14 +72,14 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
                     _mainWindow.SetupStatusProgressBar(0, setupTotal, 0);
-                    Trace.WriteLine("started...");
+                    Log("started...");
                     Task work = Task.Factory.StartNew(() => _worker.DoWork());
                     break;
                 case WorkerState.stopped:
                     _timer.Start();
                     _worker.SetState(WorkerState.running);
                     _mainWindow.SetState(WorkerState.running);
-                    Trace.WriteLine("...continued...");
+                    Log("...continued...");
                     break;
             }
         }
@@ -84,7 +92,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _timer.Stop();
                     _worker.SetState(WorkerState.stopped);
                     _mainWindow.SetState(WorkerState.stopped);
-                    Trace.WriteLine("...stopped...");
+                    Log("...stopped...");
                     break;
                 case WorkerState.done:
                     goto case WorkerState.stopped;
@@ -97,9 +105,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     _mainWindow.SetupStatusProgressBar(0, 1, 0);
                     _mainWindow.ClearComboBoxItems();
                     _updates.Clear();
+                    Log("reset");
                     SaveLogToFile();
-
-                    Trace.WriteLine("reset");
+                    _mainWindow.ClearTextBox();
                     break;
             }
         }
@@ -109,17 +117,19 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         }
 
-        public void ComboBox_SelectionChanged()
+        public void ComboBox_SelectionChanged(string category)
         {
-
+            Trace.WriteLine("ComboBox_SelectionChanged");
+            _category = category;
+            _mainWindow.ClearTextBox();
+            _lastIndex[category] = 0;
         }
         #endregion
 
-        #region Work events
+        #region Events
         public void OnWorkStep(object sender, EventArgs e)
         {
             _updates.Add(_worker.GetCounter());
-            Log(_worker.GetCounter().ToString());
         }
 
         public void OnWorkDone(object sender, EventArgs e)
@@ -127,61 +137,86 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             _timer.Stop();
             _worker.SetState(WorkerState.done);
             _mainWindow.SetState(WorkerState.done);
-            Trace.WriteLine("...done");
+            Log("...done");
         }
 
         public void OnWorkAbort(object sender, EventArgs e)
         {
-            Trace.WriteLine("...aborting...");
+            Log("...aborting...");
+        }
+
+        public void OnLog(string text)
+        {
+            Log(text);
+        }
+
+        public void OnCatLog(string category, string text)
+        {
+            Log(category, text);
         }
         #endregion
 
         #region Log
         private void ClearLog()
         {
-            _log = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
-            _logText = new Dictionary<string, string>() { { "Output", string.Empty } };
+            _logs = new Dictionary<string, List<string>>() { { "Output", new List<string>() } };
+            _lastIndex = new Dictionary<string, int>() { { "Output", 0 } };
+            _categoryList = new List<string>() { { "Output" } };
         }
+
         private void Log(string text)
         {
-            _log["Output"].Add(text);
+            Log("Output", text);
         }
 
         private void Log(string category, string text)
         {
-            if (!_log.ContainsKey(category))
+            if (!_logs.ContainsKey(category))
             {
-                _log.Add(category, new List<string>());
+                _logs.Add(category, new List<string>());
             }
 
-            _log[category].Add(text);
+            if (!_lastIndex.ContainsKey(category))
+            {
+                _lastIndex.Add(category, 0);
+            }
+
+            if (!_categoryList.Contains(category))
+            {
+                _categoryList.Add(category);
+                _mainWindow.AddComboBoxItem(category);
+            }
+
+            _logs[category].Add($"{DateTime.Now.ToString("HH:mm:ss.ffff")}\t{text}");
         }
 
         private void SaveLogToFile()
         {
-            foreach (string key in _logText.Keys)
+            foreach (string key in _logs.Keys)
             {
-                Log($@"{key} -> C:\Users\Anwender\Downloads\_{key}.log");
-            }
-
-            foreach (string key in _log.Keys)
-            {
-                foreach (string value in _log[key])
-                {
-                    if (!_logText.ContainsKey(key))
-                    {
-                        _logText.Add(key, string.Empty);
-                    }
-                    _logText[key] += value;
-                }
-            }
-
-            foreach (string key in _logText.Keys)
-            {
-                File.WriteAllText($@"C:\Users\Anwender\Downloads\_{key}.log", _logText[key]);
+                Trace.WriteLine($"{key}:\t{_logs[key].Count}");
+                File.WriteAllLines($@"C:\Users\Anwender\Downloads\_{key}.log", _logs[key]);
             }
 
             ClearLog();
+        }
+
+        private void ShowLog(string category)
+        {
+            if (_logs.ContainsKey(category))
+            {
+                if (_logs[category].Count > _lastIndex[category])
+                {
+                    string[] logUpdates = _logs[category].GetRange(_lastIndex[category], _logs[category].Count - _lastIndex[category]).ToArray();
+                    _lastIndex[category] += _logs[category].Count - _lastIndex[category];
+
+                    foreach (string logUpdate in logUpdates)
+                    {
+                        _mainWindow.UpdateTextBox(logUpdate);
+                    }
+                    _mainWindow.ScrollToEnd();
+                }
+            }
         }
         #endregion
 
@@ -202,7 +237,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex);
+                    Log(ex.ToString());
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
 
@@ -213,24 +248,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                 _updates.Clear();
             }
 
-            if (_log["Output"].Count > 0)
-            {
-                string[] logUpdates = _log["Output"].ToArray();
-                _log["Output"].Clear();
-                foreach (string logUpdate in logUpdates)
-                {
-                    _mainWindow.UpdateTextBox(logUpdate);
-                }
-                _mainWindow.ScrollToEnd();
-
-                //    var logUpdates = _log["Output"].ToArray();
-                //    _log["Output"].Clear();
-                //    foreach (string logUpdate in logUpdates)
-                //    {
-                //        _logText["Output"] += logUpdate + '\n';
-                //    }
-                //    _mainWindow.UpdateTextBoxText(_logText["Output"]);
-            }
+            ShowLog(_category);
         }
     }
 }
