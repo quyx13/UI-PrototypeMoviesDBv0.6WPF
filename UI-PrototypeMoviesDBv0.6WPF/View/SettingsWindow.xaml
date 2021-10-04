@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_PrototypeMoviesDBv0._6WPF.View"
         mc:Ignorable="d"
-        Title="UI-PrototypeMoviesDBv0.6WPF-Settings" Icon="/res/settings24.png" WindowStyle="SingleBorderWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
+        Title="UI-PrototypeMoviesDBv0.6WPF" Icon="/res/settings24.png" WindowStyle="SingleBorderWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Width="230" ShowInTaskbar="False" Height="170">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
