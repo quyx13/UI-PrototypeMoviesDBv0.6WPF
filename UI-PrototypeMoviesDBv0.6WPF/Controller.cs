@@ -11,6 +11,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     internal class Controller
     {
         #region Initialization
+        private static readonly string settingsXmlPath = $"{AppDomain.CurrentDomain.BaseDirectory}settings.xml";
         private static readonly int setupTotal = 5200;
         private static readonly int setupWait = 1;
 
@@ -35,6 +36,24 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Start();
 
             SetupWorker();
+
+            if (File.Exists(settingsXmlPath))
+            {
+                try
+                {
+                    Xml.LoadSettings(settingsXmlPath);
+                }
+                catch (Exception ex)
+                {
+                    Log(ex.ToString());
+                }
+            }
+            else
+            {
+                Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> { 
+                    { "total", setupTotal.ToString() },
+                    { "wait", setupWait.ToString() } });
+            }
         }
 
         private void SetupWorker()
