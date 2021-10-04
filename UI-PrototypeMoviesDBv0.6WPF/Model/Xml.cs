@@ -3,15 +3,6 @@ using System.Xml;
 
 namespace UI_PrototypeMoviesDBv0._6WPF.Model
 {
-    public enum WorkerState
-    {
-        ready,
-        running,
-        stopped,
-        done,
-        abort
-    }
-
     internal static class Xml
     {
         internal static void SaveSettings(string path, Dictionary<string, string> settings)
