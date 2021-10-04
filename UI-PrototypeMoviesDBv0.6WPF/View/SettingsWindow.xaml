@@ -5,15 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_PrototypeMoviesDBv0._6WPF.View"
         mc:Ignorable="d"
-        Title="UI-PrototypeMoviesDBv0.6WPF-Settings" Height="540" Width="720" MinWidth="720" MinHeight="540" Icon="/res/clapperboard.png" WindowStyle="SingleBorderWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
+        Title="UI-PrototypeMoviesDBv0.6WPF-Settings" Icon="/res/settings24.png" WindowStyle="SingleBorderWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            
-        </Grid>
+        <GroupBox>
+            <GroupBox.Header>
+                <Label>Settings</Label>
+            </GroupBox.Header>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Total number:" Width="100" HorizontalContentAlignment="Right"/>
+                <TextBox x:Name="textBoxTotal" Grid.Column="1" Grid.Row="0" Height="18" Width="52"/>
+                <Label Grid.Column="0" Grid.Row="1" Content="Wait in ms:" Width="100" HorizontalContentAlignment="Right"/>
+                <TextBox x:Name="textBoxWait" Grid.Column="1" Grid.Row="1" Height="18" Width="52"/>
+            </Grid>
+        </GroupBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
