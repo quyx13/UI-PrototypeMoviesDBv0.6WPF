@@ -37,28 +37,28 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             SetupWorker();
 
-            //if (File.Exists(settingsXmlPath))
-            //{
-            //    try
-            //    {
-            //        var settings = Xml.LoadSettings(settingsXmlPath);
-            //        setupTotal = int.Parse(settings["total"]);
-            //        setupWait = int.Parse(settings["wait"]);
+            if (File.Exists(settingsXmlPath))
+            {
+                try
+                {
+                    var settings = Xml.LoadSettings(settingsXmlPath);
+                    setupTotal = int.Parse(settings["total"]);
+                    setupWait = int.Parse(settings["wait"]);
 
-            //        _worker.SetTotal(setupTotal);
-            //        _worker.SetWait(setupWait);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Log(ex.ToString());
-            //    }
-            //}
-            //else
-            //{
-            //    Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
-            //        { "total", setupTotal.ToString() },
-            //        { "wait", setupWait.ToString() } });
-            //}
+                    _worker.SetTotal(setupTotal);
+                    _worker.SetWait(setupWait);
+                }
+                catch (Exception ex)
+                {
+                    Log(ex.ToString());
+                }
+            }
+            else
+            {
+                Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
+                    { "total", setupTotal.ToString() },
+                    { "wait", setupWait.ToString() } });
+            }
         }
 
         private void SetupWorker()
@@ -138,33 +138,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnSettings_Click()
         {
-            //View.SettingsWindow settingsWindow = new View.SettingsWindow();
-            //if (settingsWindow.ShowDialog() == true)
-            //{
-            //    Trace.WriteLine(true);
-            //}
-
-            if (File.Exists(settingsXmlPath))
+            View.SettingsWindow settingsWindow = new View.SettingsWindow();
+            if (settingsWindow.ShowDialog() == true)
             {
-                try
-                {
-                    var settings = Xml.LoadSettings(settingsXmlPath);
-                    setupTotal = int.Parse(settings["total"]);
-                    setupWait = int.Parse(settings["wait"]);
-
-                    _worker.SetTotal(setupTotal);
-                    _worker.SetWait(setupWait);
-                }
-                catch (Exception ex)
-                {
-                    Log(ex.ToString());
-                }
-            }
-            else
-            {
-                Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
-                    { "total", setupTotal.ToString() },
-                    { "wait", setupWait.ToString() } });
+                Trace.WriteLine(true);
             }
         }
 
