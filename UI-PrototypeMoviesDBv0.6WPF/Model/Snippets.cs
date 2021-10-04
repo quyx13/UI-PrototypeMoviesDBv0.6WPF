@@ -29,8 +29,15 @@
         //}
     }
 
-    internal class Snippets2    // Item-Range of a List to Array and then to a single string
+    internal class Snippets2
     {
-        //string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
+        // Item-Range of a List to Array and then to a single string
+            //string text = String.Join('\n', _logs[category].GetRange(0, _logs[category].Count - 1).ToArray());
+
+        // String mit Tausender-Trennzeichen und ohne führende 0 formatieren
+            //Trace.WriteLine(string.Format("{0:#,##0}", 1000));
+            //Trace.WriteLine(string.Format("{0:#,##0}", 100));
+            //Trace.WriteLine(string.Format("{0:#,##0}", 10));
+            //Trace.WriteLine(string.Format("{0:#,##0}", 1));
     }
 }
