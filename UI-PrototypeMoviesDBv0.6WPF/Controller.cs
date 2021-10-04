@@ -37,25 +37,28 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
             SetupWorker();
 
-            if (File.Exists(settingsXmlPath))
-            {
-                try
-                {
-                    var settings = Xml.LoadSettings(settingsXmlPath);
-                    setupTotal = int.Parse(settings["total"]);
-                    setupWait = int.Parse(settings["wait"]);
-                }
-                catch (Exception ex)
-                {
-                    Log(ex.ToString());
-                }
-            }
-            else
-            {
-                Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> { 
-                    { "total", setupTotal.ToString() },
-                    { "wait", setupWait.ToString() } });
-            }
+            //if (File.Exists(settingsXmlPath))
+            //{
+            //    try
+            //    {
+            //        var settings = Xml.LoadSettings(settingsXmlPath);
+            //        setupTotal = int.Parse(settings["total"]);
+            //        setupWait = int.Parse(settings["wait"]);
+
+            //        _worker.SetTotal(setupTotal);
+            //        _worker.SetWait(setupWait);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Log(ex.ToString());
+            //    }
+            //}
+            //else
+            //{
+            //    Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
+            //        { "total", setupTotal.ToString() },
+            //        { "wait", setupWait.ToString() } });
+            //}
         }
 
         private void SetupWorker()
@@ -135,10 +138,33 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnSettings_Click()
         {
-            View.SettingsWindow settingsWindow = new View.SettingsWindow();
-            if (settingsWindow.ShowDialog() == true)
+            //View.SettingsWindow settingsWindow = new View.SettingsWindow();
+            //if (settingsWindow.ShowDialog() == true)
+            //{
+            //    Trace.WriteLine(true);
+            //}
+
+            if (File.Exists(settingsXmlPath))
             {
-                Trace.WriteLine(true);
+                try
+                {
+                    var settings = Xml.LoadSettings(settingsXmlPath);
+                    setupTotal = int.Parse(settings["total"]);
+                    setupWait = int.Parse(settings["wait"]);
+
+                    _worker.SetTotal(setupTotal);
+                    _worker.SetWait(setupWait);
+                }
+                catch (Exception ex)
+                {
+                    Log(ex.ToString());
+                }
+            }
+            else
+            {
+                Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
+                    { "total", setupTotal.ToString() },
+                    { "wait", setupWait.ToString() } });
             }
         }
 
@@ -275,6 +301,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
         {
             _mainWindow.UpdateWindowTitle($"UI-PrototypeMoviesDBv0.6WPF   [{DateTime.Now.ToString("HH:mm:ss")}]   [Updates/Tick:{string.Format("{0:#,##0}", _updates.Count)}]");
             _mainWindow.UpdateStatusTextElapsed($"{_timer.Elapsed.Hours:D2}h:{_timer.Elapsed.Minutes:D2}m:{_timer.Elapsed.Seconds:D2}s");
+            _mainWindow.UpdateStatusTextTask($"{string.Format("{0:#,##0}", _worker.GetCounter())} of {string.Format("{0:#,##0}", setupTotal)}");
 
             if (_updates.Count > 0)
             {
@@ -291,8 +318,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     Log(ex.ToString());
                 }
                 _mainWindow.UpdateStatusTextRemaining($"(remaining: {timeRemaing.Hours:D2}h:{timeRemaing.Minutes:D2}m:{timeRemaing.Seconds:D2}s)");
-
-                _mainWindow.UpdateStatusTextTask($"{string.Format("{0:#,##0}", _updates[_updates.Count - 1])} of {string.Format("{0:#,##0}", setupTotal)}");
                 _mainWindow.UpdateStatusProgressBar(_updates[_updates.Count - 1]);
                 _mainWindow.UpdateStatusTextPercentage($"{(_updates[_updates.Count - 1] / (double)setupTotal * 100):F2}%");
 
