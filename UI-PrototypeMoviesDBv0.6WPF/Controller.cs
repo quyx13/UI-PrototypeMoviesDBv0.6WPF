@@ -36,7 +36,34 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             mainWindow.GetDispatcherTimer().Start();
 
             SetupWorker();
+            LoadSettings();
+        }
 
+        private void SetupWorker()
+        {
+            _worker = new Worker();
+            _worker.SetTotal(setupTotal);
+            _worker.SetWait(setupWait);
+
+            _worker.OnWorkStep += OnWorkStep;
+            _worker.OnWorkDone += OnWorkDone;
+            _worker.OnWorkAbort += OnWorkAbort;
+
+            _worker.OnLog += OnLog;
+            _worker.OnCatLog += OnCatLog;
+        }
+        #endregion
+
+        #region Settings
+        private void SaveSettings()
+        {
+            Xml.SaveSettings(settingsXmlPath, new Dictionary<string, string> {
+                    { "total", setupTotal.ToString() },
+                    { "wait", setupWait.ToString() } });
+        }
+
+        private void LoadSettings()
+        {
             if (File.Exists(settingsXmlPath))
             {
                 try
@@ -59,20 +86,6 @@ namespace UI_PrototypeMoviesDBv0._6WPF
                     { "total", setupTotal.ToString() },
                     { "wait", setupWait.ToString() } });
             }
-        }
-
-        private void SetupWorker()
-        {
-            _worker = new Worker();
-            _worker.SetTotal(setupTotal);
-            _worker.SetWait(setupWait);
-
-            _worker.OnWorkStep += OnWorkStep;
-            _worker.OnWorkDone += OnWorkDone;
-            _worker.OnWorkAbort += OnWorkAbort;
-
-            _worker.OnLog += OnLog;
-            _worker.OnCatLog += OnCatLog;
         }
         #endregion
 
