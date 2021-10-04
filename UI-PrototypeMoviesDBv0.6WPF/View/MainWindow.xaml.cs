@@ -8,6 +8,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
 {
     public partial class MainWindow : Window
     {
+        #region Initialization
         private Controller _controller;
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
@@ -18,6 +19,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
             _controller = new Controller(this);
             ClearComboBoxItems();
         }
+        #endregion
 
         #region Getter and setter
         public DispatcherTimer GetDispatcherTimer()
