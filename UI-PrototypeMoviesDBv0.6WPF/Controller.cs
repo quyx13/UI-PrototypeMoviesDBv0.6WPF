@@ -114,7 +114,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
         public void BtnSettings_Click()
         {
-
+            View.SettingsWindow settingsWindow = new View.SettingsWindow();
+            if (settingsWindow.ShowDialog() == true)
+            {
+                Trace.WriteLine(true);
+            }
         }
 
         public void ComboBox_SelectionChangedA(string category)
