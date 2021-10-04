@@ -12,8 +12,8 @@ namespace UI_PrototypeMoviesDBv0._6WPF
     {
         #region Initialization
         private static readonly string settingsXmlPath = $"{AppDomain.CurrentDomain.BaseDirectory}settings.xml";
-        private static readonly int setupTotal = 5200;
-        private static readonly int setupWait = 1;
+        private int setupTotal = 5200;
+        private int setupWait = 1;
 
         private View.MainWindow _mainWindow;
         private Stopwatch _timer = new Stopwatch();
@@ -41,7 +41,9 @@ namespace UI_PrototypeMoviesDBv0._6WPF
             {
                 try
                 {
-                    Xml.LoadSettings(settingsXmlPath);
+                    var settings = Xml.LoadSettings(settingsXmlPath);
+                    setupTotal = int.Parse(settings["total"]);
+                    setupWait = int.Parse(settings["wait"]);
                 }
                 catch (Exception ex)
                 {

@@ -36,11 +36,11 @@ namespace UI_PrototypeMoviesDBv0._6WPF.Model
             XmlDocument xml = new XmlDocument();
 
             xml.Load(path);
-            XmlNodeList nodes = xml.SelectNodes("//settings");
+            XmlNodeList nodes = xml.SelectSingleNode("//settings").ChildNodes;
 
             foreach (XmlNode node in nodes)
             {
-                System.Diagnostics.Trace.WriteLine($"{node}\t{node.InnerText}");
+                settings.Add(node.Name, node.InnerText);
             }
 
             return settings;
