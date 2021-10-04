@@ -13,5 +13,10 @@ namespace UI_PrototypeMoviesDBv0._6WPF.View
         {
             DialogResult = true;
         }
+
+        private void btnDialogCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
     }
 }
