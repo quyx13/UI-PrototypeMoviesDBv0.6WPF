@@ -269,7 +269,7 @@ namespace UI_PrototypeMoviesDBv0._6WPF
 
                 _mainWindow.UpdateStatusTextTask($"{string.Format("{0:#,##0}", _updates[_updates.Count - 1])} of {string.Format("{0:#,##0}", setupTotal)}");
                 _mainWindow.UpdateStatusProgressBar(_updates[_updates.Count - 1]);
-                _mainWindow.UpdateStatusTextPercentage($"{((_updates[_updates.Count - 1]) / (double)setupTotal * 100):F2}%");
+                _mainWindow.UpdateStatusTextPercentage($"{(_updates[_updates.Count - 1] / (double)setupTotal * 100):F2}%");
 
                 _updates.Clear();
             }
