@@ -11,14 +11,37 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" Padding="5,5,5,5" Margin="5,5,5,5" Width="60">Ok</Button>
-            <Button Grid.Column="2" IsDefault="False" Name="btnDialogCancel" Click="btnDialogCancel_Click" Padding="5,5,5,5" Width="60" Margin="5,5,5,5">Cancel</Button>
+            <Button x:Name="btnDialogOk" Grid.Column="1" Margin="3,3,3,3" Click="btnDialogOk_Click">
+                <Grid HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/res/accept24.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" Width="45">Ok</TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btnDialogCancel" Grid.Column="2" Margin="3,3,3,3" Click="btnDialogCancel_Click">
+                <Grid HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/res/delete24.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,1,1"/>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0" Width="45">Cancel</TextBlock>
+                </Grid>
+            </Button>
         </Grid>
     </Grid>
 </Window>

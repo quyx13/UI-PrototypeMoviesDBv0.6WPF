@@ -9,8 +9,10 @@
 
   <ItemGroup>
     <None Remove="res\accept24.png" />
+    <None Remove="res\accept24gray.png" />
     <None Remove="res\clapperboard.png" />
     <None Remove="res\delete24.png" />
+    <None Remove="res\delete24gray.png" />
     <None Remove="res\exit24.png" />
     <None Remove="res\info24.png" />
     <None Remove="res\pause24.png" />
@@ -25,8 +27,10 @@
 
   <ItemGroup>
     <Resource Include="res\accept24.png" />
+    <Resource Include="res\accept24gray.png" />
     <Resource Include="res\clapperboard.png" />
     <Resource Include="res\delete24.png" />
+    <Resource Include="res\delete24gray.png" />
     <Resource Include="res\exit24.png" />
     <Resource Include="res\info24.png" />
     <Resource Include="res\pause24.png" />
